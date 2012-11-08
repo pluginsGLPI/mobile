@@ -22,7 +22,7 @@ class PluginMobileHtml extends Html {
       ob_end_clean();
 
       $menu = self::extractMenu($html);
-
+      
       echo "<!DOCTYPE html>
       <html>
       <head>
@@ -77,50 +77,39 @@ class PluginMobileHtml extends Html {
    }
 
    static function extractMenu($html) {
+      //extract menu; search for <div id='c_menu'>
+      preg_match("/<ul id='menu.*>(.*)<\/div>/Uism", $html, $matches);
+      $menu =  $matches[1];
 
+      //remove unused attributes
+      $menu = preg_replace(array(
+         "/onmouseover=\".*\"/U",
+         "/class=['|\"].*['|\"]/U",
+         "/accesskey='.*'/U"
+      ), "", $menu);
+
+
+      //replace 1st levels
+      $menu = preg_replace("/<\/li><li id='menu/Uism", "<li id='menu", $menu);
+      $menu = preg_replace("/<li id='menu.*'.*>.*<a href.*>(.*)<\/a>.*(<ul.*\/ul>)/Uism", 
+         "<div data-role='collapsible' data-inset='false'>\n<h2>$1</h2>\n$2</div>", $menu);
+
+      //add listview attr to ul
+      $menu = str_replace("<ul", "<ul data-role='listview'", $menu);
+
+      //replace href for get page in plugin mobile
+      $menu = str_replace("href='", "href='page.php?url=", $menu);
+
+      return $menu;
    }
 
    static function showMenu($menu) {
       echo "
       <div data-role='popup' id='menuPanel' data-theme='none'>
-         <div data-role='collapsible-set'
+         <div data-role='collapsible-set' data-content-theme='c'
                data-collapsed-icon='arrow-r' data-expanded-icon='arrow-d' 
                style='margin:0; width:250px;'>
-            <div data-role='collapsible' data-inset='false'>
-               <h2>Farm animals</h2>
-               <ul data-role='listview'>
-                  <li><a href='../dialog.html' data-rel='dialog'>Chicken</a></li>
-                  <li><a href='../dialog.html' data-rel='dialog'>Cow</a></li>
-                  <li><a href='../dialog.html' data-rel='dialog'>Duck</a></li>
-                  <li><a href='../dialog.html' data-rel='dialog'>Sheep</a></li>
-               </ul>
-            </div><!-- /collapsible -->
-            <div data-role='collapsible' data-inset='false'>
-               <h2>Pets</h2>
-               <ul data-role='listview'>
-                  <li><a href='../dialog.html' data-rel='dialog'>Cat</a></li>
-                  <li><a href='../dialog.html' data-rel='dialog'>Dog</a></li>
-                  <li><a href='../dialog.html' data-rel='dialog'>Iguana</a></li>
-                  <li><a href='../dialog.html' data-rel='dialog'>Mouse</a></li>
-               </ul>
-            </div><!-- /collapsible -->
-            <div data-role='collapsible' data-inset='false'>
-               <h2>Ocean Creatures</h2>
-               <ul data-role='listview'>
-                  <li><a href='../dialog.html' data-rel='dialog'>Fish</a></li>
-                  <li><a href='../dialog.html' data-rel='dialog'>Octopus</a></li>
-                  <li><a href='../dialog.html' data-rel='dialog'>Shark</a></li>
-                  <li><a href='../dialog.html' data-rel='dialog'>Starfish</a></li>
-               </ul>
-            </div><!-- /collapsible -->
-            <div data-role='collapsible' data-inset='false'>
-               <h2>Wild Animals</h2>
-               <ul data-role='listview'>
-                  <li><a href='../dialog.html' data-rel='dialog'>Lion</a></li>
-                  <li><a href='../dialog.html' data-rel='dialog'>Monkey</a></li>
-                  <li><a href='../dialog.html' data-rel='dialog'>Tiger</a></li>
-                  <li><a href='../dialog.html' data-rel='dialog'>Zebra</a></li>
-               </ul>
+            $menu
             </div><!-- /collapsible -->
          </div><!-- /collapsible set -->
       </div><!-- /popup -->
