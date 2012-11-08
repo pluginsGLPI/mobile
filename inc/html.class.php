@@ -35,24 +35,31 @@ class PluginMobileHtml extends Html {
          <link rel='stylesheet' href='".GLPI_ROOT.
             "/plugins/mobile/lib/jquery.mobile-1.2.0/jquery.mobile.structure-1.2.0.min.css' /> 
          <link rel='stylesheet' href='".GLPI_ROOT."/plugins/mobile/mobile.css' /> 
-         <script src='".GLPI_ROOT."/lib/jquery/jquery-1.7.2.min.js'></script> 
+         <script src='".GLPI_ROOT."/lib/jquery/jquery-1.7.2.min.js'></script>";
+         self::echoJqueryCommonScripts();
+      echo "
          <script src='".GLPI_ROOT.
-            "/plugins/mobile/lib/jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.js'></script> 
-
-      </head>
+            "/plugins/mobile/lib/jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.js'></script>";
+      echo "</head>
       <body>";
 
-      echo "<div data-role='page' data-theme='a'>
-         <a data-role='button' data-inline='true' data-icon='glpi-mobile-home' title='".__('Home').
-            "' href='central.php'>
-         </a>
-         <div data-role='header' data-position='inline'>
-            <a href='#menuPanel' data-icon='grid' title='".__("Menu").
-               "' data-rel='popup' data-transition='slide' data-position-to='window' ".
-               "data-role='button'>".__("Menu")."</a>";
-      self::showMenu();
-      echo "   <h1>$title</h1>
+      echo "
+      <div data-role='page' data-theme='a'>
+
+         <a href='central.php' data-role='button' data-inline='true' data-icon='glpi-mobile-home' 
+            title='".__('Home')."' ></a>
+
+         <div data-role='header' data-position='inline'>";
+            echo "<a href='#menuPanel' data-icon='grid' data-rel='popup' data-role='button' 
+               data-inline='true' title='".__("Menu")."'>".__("Menu")."</a>";
+
+            self::showMenu($menu);
+
+            
+            echo "<h1>$title</h1>
+
             <a data-icon='back'  data-back='true' title='".__('Back')."'>".__('Back')."</a>
+
          </div>
          <div data-role='content' data-theme='a'>";
    
@@ -69,18 +76,73 @@ class PluginMobileHtml extends Html {
       echo "</div></div></body></html>";
    }
 
-   static function showMenu() {
+   static function extractMenu($html) {
+
+   }
+
+   static function showMenu($menu) {
       echo "
-      <div data-role='popup' id='menuPanel' data-corners='false' data-theme='none' 
-            data-shadow='false' data-tolerance='0,0'>
-         <button data-theme='a' data-icon='back' data-mini='true'>Back</button>
-         <button data-theme='a' data-icon='grid' data-mini='true'>Menu</button>
-         <button data-theme='a' data-icon='search' data-mini='true'>Search</button>
-      </div>
+      <div data-role='popup' id='menuPanel' data-theme='none'>
+         <div data-role='collapsible-set'
+               data-collapsed-icon='arrow-r' data-expanded-icon='arrow-d' 
+               style='margin:0; width:250px;'>
+            <div data-role='collapsible' data-inset='false'>
+               <h2>Farm animals</h2>
+               <ul data-role='listview'>
+                  <li><a href='../dialog.html' data-rel='dialog'>Chicken</a></li>
+                  <li><a href='../dialog.html' data-rel='dialog'>Cow</a></li>
+                  <li><a href='../dialog.html' data-rel='dialog'>Duck</a></li>
+                  <li><a href='../dialog.html' data-rel='dialog'>Sheep</a></li>
+               </ul>
+            </div><!-- /collapsible -->
+            <div data-role='collapsible' data-inset='false'>
+               <h2>Pets</h2>
+               <ul data-role='listview'>
+                  <li><a href='../dialog.html' data-rel='dialog'>Cat</a></li>
+                  <li><a href='../dialog.html' data-rel='dialog'>Dog</a></li>
+                  <li><a href='../dialog.html' data-rel='dialog'>Iguana</a></li>
+                  <li><a href='../dialog.html' data-rel='dialog'>Mouse</a></li>
+               </ul>
+            </div><!-- /collapsible -->
+            <div data-role='collapsible' data-inset='false'>
+               <h2>Ocean Creatures</h2>
+               <ul data-role='listview'>
+                  <li><a href='../dialog.html' data-rel='dialog'>Fish</a></li>
+                  <li><a href='../dialog.html' data-rel='dialog'>Octopus</a></li>
+                  <li><a href='../dialog.html' data-rel='dialog'>Shark</a></li>
+                  <li><a href='../dialog.html' data-rel='dialog'>Starfish</a></li>
+               </ul>
+            </div><!-- /collapsible -->
+            <div data-role='collapsible' data-inset='false'>
+               <h2>Wild Animals</h2>
+               <ul data-role='listview'>
+                  <li><a href='../dialog.html' data-rel='dialog'>Lion</a></li>
+                  <li><a href='../dialog.html' data-rel='dialog'>Monkey</a></li>
+                  <li><a href='../dialog.html' data-rel='dialog'>Tiger</a></li>
+                  <li><a href='../dialog.html' data-rel='dialog'>Zebra</a></li>
+               </ul>
+            </div><!-- /collapsible -->
+         </div><!-- /collapsible set -->
+      </div><!-- /popup -->
+      
       ";
    }
 
-   static function extractMenu($html) {
+   static function echoJqueryCommonScripts() {
 
+      $JS = <<<JAVASCRIPT
+      $(document).bind("mobileinit", function(){
+         
+         $("#menuPanel").on({popupbeforeposition: function() {
+            var h = $(window).height();
+            console.log("test");
+         
+            $("#menuPanel").css("height", h);
+         }});
+
+      });
+JAVASCRIPT;
+
+      echo "<script type='text/javascript'>$JS</script>";
    }
 }
