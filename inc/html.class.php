@@ -34,6 +34,7 @@ class PluginMobileHtml extends Html {
             "/plugins/mobile/themes/default/glpi-mobile.min.css' />
          <link rel='stylesheet' href='".GLPI_ROOT.
             "/plugins/mobile/lib/jquery.mobile-1.2.0/jquery.mobile.structure-1.2.0.min.css' /> 
+         <link rel='stylesheet' href='".GLPI_ROOT."/plugins/mobile/mobile.css' /> 
          <script src='".GLPI_ROOT."/lib/jquery/jquery-1.7.2.min.js'></script> 
          <script src='".GLPI_ROOT.
             "/plugins/mobile/lib/jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.js'></script> 
@@ -42,13 +43,16 @@ class PluginMobileHtml extends Html {
       <body>";
 
       echo "<div data-role='page' data-theme='a'>
-         <a data-icon='glpi-mobile-home' title='".__('Home').
-            "' data-iconpos='notext' href='central.php'>
+         <a data-role='button' data-inline='true' data-icon='glpi-mobile-home' title='".__('Home').
+            "' href='central.php'>
          </a>
          <div data-role='header' data-position='inline'>
-            <a data-icon='grid' title='".__("Menu")."'>".__("Menu")."</a>
-            <h1>$title</h1>
-            <a data-icon='back' title='".__('Back')."'>".__('Back')."</a>
+            <a href='#menuPanel' data-icon='grid' title='".__("Menu").
+               "' data-rel='popup' data-transition='slide' data-position-to='window' ".
+               "data-role='button'>".__("Menu")."</a>";
+      self::showMenu();
+      echo "   <h1>$title</h1>
+            <a data-icon='back'  data-back='true' title='".__('Back')."'>".__('Back')."</a>
          </div>
          <div data-role='content' data-theme='a'>";
    
@@ -63,6 +67,17 @@ class PluginMobileHtml extends Html {
 
 
       echo "</div></div></body></html>";
+   }
+
+   static function showMenu() {
+      echo "
+      <div data-role='popup' id='menuPanel' data-corners='false' data-theme='none' 
+            data-shadow='false' data-tolerance='0,0'>
+         <button data-theme='a' data-icon='back' data-mini='true'>Back</button>
+         <button data-theme='a' data-icon='grid' data-mini='true'>Menu</button>
+         <button data-theme='a' data-icon='search' data-mini='true'>Search</button>
+      </div>
+      ";
    }
 
    static function extractMenu($html) {

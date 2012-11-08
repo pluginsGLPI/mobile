@@ -4,19 +4,18 @@
 function plugin_init_mobile() {
    global $PLUGIN_HOOKS, $LANG;
    
+   $PLUGIN_HOOKS['csrf_compliant']['mobile'] = true;
    
-   $menu_entry  = 'front/central.php';
-   $PLUGIN_HOOKS['menu_entry']['mobile'] = $menu_entry;
-
-
+   $menu_entry = 'front/central.php';
+   $PLUGIN_HOOKS['menu_entry']['mobile']     = $menu_entry;
    
-   $PLUGIN_HOOKS['redirect_page']['mobile'] = 'front/central.php';
+   
+   //$PLUGIN_HOOKS['redirect_page']['mobile']  = 'front/central.php';
 
    $plug = new Plugin;
    if ($plug->isInstalled('mobile') && $plug->isActivated('mobile')) {
-      require_once GLPI_ROOT."/plugins/mobile/inc/common.function.php";
-      checkParams();
-      if (isNavigatorMobile()) redirectMobile();
+      PluginMobileCommon::checkParams();
+      if (PluginMobileCommon::isNavigatorMobile()) PluginMobileCommon::redirectMobile();
    }
 
 }
@@ -36,7 +35,7 @@ function plugin_version_mobile() {
 // Optional : check prerequisites before install : may print errors or add to message after redirect
 function plugin_mobile_check_prerequisites() {
 
-   if (version_compare(GLPI_VERSION,'0.84','lt')) {
+   if (version_compare(GLPI_VERSION,'0.84','>=')) {
       return true;
    } else {
       echo "GLPI version not compatible need 0.84 min";
