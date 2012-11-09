@@ -85,7 +85,7 @@ class PluginMobileCommon {
          Auth::checkAlternateAuthSystems(true, "plugin_mobile_1");
 
          //else redirect login page
-         header("location: ".GLPI_ROOT."/plugins/mobile/front/central.php");
+         header("location: ".GLPI_ROOT."/plugins/mobile/index.php");
       }
    }
 }

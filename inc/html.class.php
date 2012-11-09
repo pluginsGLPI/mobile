@@ -25,8 +25,7 @@ class PluginMobileHtml extends Html {
       
       self::includeHeader($title);
 
-      echo "<a href='central.php' data-role='button' data-inline='true' data-icon='glpi-mobile-home'
-            title='".__('Home')."' ></a>
+      echo "<img src='../pics/logo.png' title='".__('Home')."' />
 
          <div data-role='header' data-position='inline'>";
             echo "<a href='#menuPanel' data-icon='grid' data-rel='popup' data-role='button' 
@@ -34,11 +33,11 @@ class PluginMobileHtml extends Html {
 
             self::showMenu($menu);
 
-            echo "<h1>$title</h1>
+            echo "<h1>$title</h1>";
 
-            <a data-icon='back'  data-back='true' title='".__('Back')."'>".__('Back')."</a>
+            //echo "<a data-icon='back'  data-back='true' title='".__('Back')."'>".__('Back')."</a>";
 
-         </div>
+         echo "</div>
          <div data-role='content' data-theme='a'>";
    
    }
@@ -77,6 +76,8 @@ class PluginMobileHtml extends Html {
    }
 
    static function extractMenu($html) {
+      global $CFG_GLPI;
+
       //extract menu; search for <div id='c_menu'>
       preg_match("/<ul id='menu.*>(.*)<\/div>/Uism", $html, $matches);
       $menu =  $matches[1];
@@ -100,15 +101,22 @@ class PluginMobileHtml extends Html {
       //replace href for get page in plugin mobile
       $menu = str_replace("href='", "href='page.php?url=", $menu);
 
+      //remove base glpi from url
+      $menu = str_replace($CFG_GLPI['root_doc']."/", "", $menu);
+
       return $menu;
    }
 
    static function showMenu($menu) {
       echo "
-      <div data-role='popup' id='menuPanel' data-theme='none'>
+      <div data-role='popup' id='menuPanel' data-theme='c'>
+         <a href='central.php' data-role='button' data-icon='home' ".
+            "data-theme='c' data-inline='true' data-mini='true'>".__("Home")."</a>
+         <a href='../logout.php' data-role='button' data-icon='delete' ".
+            "data-theme='c' data-inline='true' data-mini='true'>".__("Logout")."</a>
          <div data-role='collapsible-set' data-content-theme='c'
                data-collapsed-icon='arrow-r' data-expanded-icon='arrow-d' 
-               style='margin:0; width:250px;'>
+               style='margin:0; width:250px;'>        
             $menu
             </div><!-- /collapsible -->
          </div><!-- /collapsible set -->
