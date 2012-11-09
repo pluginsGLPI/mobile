@@ -23,6 +23,27 @@ class PluginMobileHtml extends Html {
 
       $menu = self::extractMenu($html);
       
+      self::includeHeader($title);
+
+      echo "<a href='central.php' data-role='button' data-inline='true' data-icon='glpi-mobile-home'
+            title='".__('Home')."' ></a>
+
+         <div data-role='header' data-position='inline'>";
+            echo "<a href='#menuPanel' data-icon='grid' data-rel='popup' data-role='button' 
+               data-inline='true' title='".__("Menu")."'>".__("Menu")."</a>";
+
+            self::showMenu($menu);
+
+            echo "<h1>$title</h1>
+
+            <a data-icon='back'  data-back='true' title='".__('Back')."'>".__('Back')."</a>
+
+         </div>
+         <div data-role='content' data-theme='a'>";
+   
+   }
+
+   static function includeHeader($title = '') {
       echo "<!DOCTYPE html>
       <html>
       <head>
@@ -41,28 +62,7 @@ class PluginMobileHtml extends Html {
          <script src='".GLPI_ROOT.
             "/plugins/mobile/lib/jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.js'></script>";
       echo "</head>
-      <body>";
-
-      echo "
-      <div data-role='page' data-theme='a'>
-
-         <a href='central.php' data-role='button' data-inline='true' data-icon='glpi-mobile-home' 
-            title='".__('Home')."' ></a>
-
-         <div data-role='header' data-position='inline'>";
-            echo "<a href='#menuPanel' data-icon='grid' data-rel='popup' data-role='button' 
-               data-inline='true' title='".__("Menu")."'>".__("Menu")."</a>";
-
-            self::showMenu($menu);
-
-            
-            echo "<h1>$title</h1>
-
-            <a data-icon='back'  data-back='true' title='".__('Back')."'>".__('Back')."</a>
-
-         </div>
-         <div data-role='content' data-theme='a'>";
-   
+      <body><div data-role='page' data-theme='a'>";
    }
 
    static function footer($keepDB=false) {
@@ -133,5 +133,67 @@ class PluginMobileHtml extends Html {
 JAVASCRIPT;
 
       echo "<script type='text/javascript'>$JS</script>";
+   }
+
+   static function showLoginBox($error = '', $REDIRECT = "") {
+
+      $_SESSION["glpicookietest"] = 'testcookie';
+
+      // For compatibility reason
+      if (isset($_GET["noCAS"])) {
+         $_GET["noAUTO"] = $_GET["noCAS"];
+      }
+
+      Auth::checkAlternateAuthSystems(true, isset($_GET["redirect"])?$_GET["redirect"]:"");
+
+      echo "<a href='#'><img src='".GLPI_ROOT."/plugins/mobile/pics/logo.png' alt='Logo' /></a>";
+      echo "<div data-role='header'  data-position='inline'>";
+      echo "<h1>".__('Authentication')."</h1>";
+      echo "</div>";
+
+      echo "<div data-role='content' class='login-box'>";
+      if (!empty($error)) {
+         echo "<div class='center b'>";
+         echo "<noscript><p>";
+         _e('You must activate the JavaScript function of your navigator');
+         echo "</p></noscript>";
+         echo $error;
+         echo "<br><br>";
+      }
+
+      echo "<form action='".GLPI_ROOT."/plugins/mobile/login.php' method='post'>";
+      echo "<fieldset>";
+
+      echo "<div data-role='fieldcontain'>";
+      echo "<label for='login_name'>".__('Login').":</label>";
+      echo "<input type='text' name='login_name' id='login_name' value=''  />";
+      echo "</div>";
+
+      echo "<div data-role='fieldcontain'>";
+      echo "<label for='login_password'>".__('Password').":</label>";
+      echo "<input type='password' name='login_password' id='login_password' value='' />";
+      echo "</div>";
+
+      echo "<button type='submit' data-theme='a'>".__('Post')."</button>";
+
+      echo "</fieldset>";
+
+      if (isset($_GET["noAUTO"])) {
+         echo "<input type='hidden' name='noAUTO' value='1'/>";
+      }
+
+      // redirect to ticket
+      if (isset($_GET["redirect"])) {
+         Toolbox::manageRedirect($_GET["redirect"]);
+         echo '<input type="hidden" name="redirect" value="'.$_GET['redirect'].'">';
+      }
+
+      Html::closeForm();
+
+      echo "</div>";
+
+      echo "<script type='text/javascript' >\n";
+      echo "document.getElementById('login_name').focus();";
+      echo "</script>";
    }
 }
