@@ -1,9 +1,5 @@
 <?php
 
-if (!defined('GLPI_ROOT')) {
-   die("Sorry. You can't access directly to this file");
-}
-
 class PluginMobileHtml extends Html {
 
    /**
@@ -27,15 +23,15 @@ class PluginMobileHtml extends Html {
 
       echo "<img src='../pics/logo.png' title='".__('Home')."' />
 
-         <div data-role='header' data-position='inline'>";
+         <div data-role='header'>";
             echo "<a href='#menuPanel' data-icon='grid' data-rel='popup' data-role='button' 
-               data-inline='true' title='".__("Menu")."'>".__("Menu")."</a>";
+                title='".__("Menu")."'>&nbsp;</a>";
 
             self::showMenu($menu);
 
             echo "<h1>$title</h1>";
 
-            //echo "<a data-icon='back'  data-back='true' title='".__('Back')."'>".__('Back')."</a>";
+            //echo "<a data-icon='back' data-back='true' title='".__('Back')."'>".__('Back')."</a>";
 
          echo "</div>
          <div data-role='content' data-theme='a'>";
@@ -108,12 +104,22 @@ class PluginMobileHtml extends Html {
    }
 
    static function showMenu($menu) {
+      global $CFG_GLPI;
+
       echo "
       <div data-role='popup' id='menuPanel' data-theme='c'>
-         <a href='central.php' data-role='button' data-icon='home' ".
-            "data-theme='c' data-inline='true' data-mini='true'>".__("Home")."</a>
-         <a href='../logout.php' data-role='button' data-icon='delete' ".
-            "data-theme='c' data-inline='true' data-mini='true'>".__("Logout")."</a>
+         <div data-role='controlgroup' data-type='horizontal' style='margin:5px;'>
+            <a href='central.php' data-role='button' data-icon='home'".
+               "data-iconpos='notext'>".__("Home")."</a>
+            <a href='#' data-role='button' data-icon='star' ".
+               "data-iconpos='notext'>".__("Bookmark")."</a>
+            <a href='preferences.php' data-role='button' data-icon='gear' ".
+               "data-iconpos='notext'>".__("Settings")."</a>
+            <a href='../logout.php' data-role='button' data-icon='delete' ".
+               "data-iconpos='notext'>".__("Logout")."</a>
+         </div>";
+      self::showProfileSelecter($CFG_GLPI["root_doc"]."/front/helpdesk.public.php");
+      echo"<div data-role='header' data-position='inline'>".__("Menu")."</div>
          <div data-role='collapsible-set' data-content-theme='c'
                data-collapsed-icon='arrow-r' data-expanded-icon='arrow-d' 
                style='margin:0; width:250px;'>        
@@ -182,7 +188,7 @@ JAVASCRIPT;
       echo "<input type='password' name='login_password' id='login_password' value='' />";
       echo "</div>";
 
-      echo "<button type='submit' data-theme='a'>".__('Post')."</button>";
+      echo "<button type='submit' data-icon='check'>".__('Post')."</button>";
 
       echo "</fieldset>";
 
@@ -203,5 +209,45 @@ JAVASCRIPT;
       echo "<script type='text/javascript' >\n";
       echo "document.getElementById('login_name').focus();";
       echo "</script>";
+   }
+
+
+   /**
+    * Print the form used to select profile if several are available
+    *
+    * @param $target target of the form
+    *
+    * @return nothing
+   **/
+   static function showProfileSelecter($target) {
+      global $CFG_GLPI;
+
+      echo "<fieldset data-role='controlgroup' data-type='horizontal' data-mini='true'>";
+
+      if (count($_SESSION["glpiprofiles"])>1) {
+         echo "<form name='form' method='post' action='".$target."' style='float:left'>";
+         echo "<select name='newprofile' id='newprofile' onChange='submit()'>";
+
+         foreach ($_SESSION["glpiprofiles"] as $key => $val) {
+            echo "<option value='".$key."' ".
+                   (($_SESSION["glpiactiveprofile"]["id"] == $key) ?"selected":"").">".$val['name'].
+                 "</option>";
+         }
+         echo "</select>";
+         echo "<label for='newprofile'>".__("Profile")."</label>";
+         Html::closeForm();
+      }
+
+      if (Session::isMultiEntitiesMode()) {
+         /*ob_start();
+         include $CFG_GLPI['root_doc']."/ajax/entitytree.php";
+         $html = ob_get_contents();
+         ob_end_clean();
+
+         echo $html;*/
+
+         echo "<a href='#' data-role='button' data-icon='check'>".__("Entity")."</a>";
+      }
+      echo "</fieldset>";
    }
 }
