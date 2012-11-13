@@ -119,7 +119,7 @@ class PluginMobileHtml extends Html {
                "data-iconpos='notext'>".__("Settings")."</a>
             <a href='../logout.php' data-role='button' data-icon='delete' ".
                "data-iconpos='notext'>".__("Logout")."</a>
-         </div><br />";
+         </div>";
       self::showProfileSelecter($CFG_GLPI["root_doc"]."/front/helpdesk.public.php");
       echo"<div data-role='header'><center>".__("Menu")."</center></div>
          <div data-role='collapsible-set' data-content-theme='c'
@@ -143,6 +143,7 @@ class PluginMobileHtml extends Html {
    static function showProfileSelecter($target) {
       global $CFG_GLPI;
 
+      echo"<div data-role='header'><center>".__("Profile")."</center></div>";
       echo "<fieldset data-role='controlgroup' data-type='horizontal' 
          data-mini='true' style='margin-left:5px'>";
 
