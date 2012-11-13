@@ -51,9 +51,10 @@ class PluginMobileHtml extends Html {
          <link rel='stylesheet' href='".GLPI_ROOT."/plugins/mobile/mobile.css' /> 
          <script src='".GLPI_ROOT."/lib/jquery/jquery-1.7.2.min.js'></script>";
          self::echoJqueryCommonScripts();
-      echo "
-         <script src='".GLPI_ROOT.
-            "/plugins/mobile/lib/jquery.mobile-1.2.0/jquery.mobile-tables.js'></script>";
+      // echo "<script src='".GLPI_ROOT.
+      //       "/plugins/mobile/lib/jquery.mobile-1.2.0/jquery.mobile-tables.js'></script>";
+      echo "<script src='".GLPI_ROOT.
+            "/plugins/mobile/lib/jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.js'></script>";
       echo "</head>
       <body><div data-role='page' data-theme='a'>";
    }
@@ -108,7 +109,7 @@ class PluginMobileHtml extends Html {
                 title='".__("Menu")."'>&nbsp;</a>";
 
       echo "
-      <div data-role='popup' id='menuPanel' data-theme='c'>
+      <div data-role='popup' id='menuPanel'>
          <div data-role='controlgroup' data-type='horizontal' style='margin:5px;'>
             <a href='central.php' data-role='button' data-icon='home'".
                "data-iconpos='notext' data-theme='a'>".__("Home")."</a>
