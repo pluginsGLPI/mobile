@@ -1,3 +1,56 @@
 .ui-icon-glpi-mobile-home {
    background-image: url("pics/logo.png");
 }
+
+.ui-table th,
+.ui-table td {
+   border:0;
+   border-bottom: 1px solid rgba(0, 0, 0, .08);
+   white-space: nowrap;
+   padding: 6px 4px;
+   color: rgba(0, 0, 0, 0.5) !important;
+   font-size: 0.9em;
+}
+
+.ui-table th {
+   border-left: 1px solid rgba(0, 0, 0, .08);
+}
+.ui-table th a {
+   white-space: nowrap;
+   text-transform: uppercase;
+   color: #333 !important;
+   font-weight: normal;
+   text-decoration: none;
+}
+
+.ui-table tr > td:first-child, 
+.ui-table tr > th:first-child, 
+.ui-table tr:last-child {
+   display: none
+}
+
+.ui-table tr > td:nth-child(2) {
+   text-align: center;
+   background: white !important;
+   padding: 0 5px;
+}
+
+
+/* Manually hidden */ 
+th.ui-table-cell-hidden,
+td.ui-table-cell-hidden {
+  display: none;
+}
+
+/* Manually shown */
+th.ui-table-cell-visible,
+td.ui-table-cell-visible {
+   display: table-cell;
+}
+
+.ui-table .th-active-up {
+   border-top: 2px solid #333;
+}
+.ui-table .th-active-down {
+   border-bottom: 2px solid #333;
+}

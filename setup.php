@@ -1,5 +1,8 @@
 <?php
 
+//Load php libraries
+require_once GLPI_ROOT."/plugins/mobile/lib/QueryPath-2.1.2-minimal/QueryPath.php";
+
 // Init the hooks of the plugins -Needed
 function plugin_init_mobile() {
    global $PLUGIN_HOOKS, $LANG;

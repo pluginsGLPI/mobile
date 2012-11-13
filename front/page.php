@@ -1,21 +1,18 @@
 <?php
 
-/*define('GLPI_ROOT', '../../..');
-include (GLPI_ROOT."/inc/includes.php");*/
+//chdir("/var/www/glpi/0.84-bugfixes/front");
+//ob_start();
+//include "helpdesk.faq.php";
+// $html = ob_get_contents();
+// ob_end_clean();
 
-session_start();
 
-$prevdir = getcwd();
-chdir("/var/www/glpi/0.84-bugfixes/front");
-ob_start();
-include "computer.php";
-$html = ob_get_contents();
-ob_end_clean();
-chdir($prevdir);
+define('GLPI_ROOT', '../../..');
+include (GLPI_ROOT."/inc/includes.php");
 
 if(!isset($_REQUEST['url'])) $_REQUEST['url'] = "";
 
 PluginMobileHtml::header(PluginMobilePage::getTitle($_REQUEST['url']), $_SERVER['PHP_SELF']);
-PluginMobilePage::show($_REQUEST['url']);
+PluginMobileSearch::show('Ticket');
 PluginMobileHtml::footer();
 ?>

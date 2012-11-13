@@ -24,9 +24,7 @@ class PluginMobileHtml extends Html {
       echo "<img src='../pics/logo.png' title='".__('Home')."' />
 
          <div data-role='header'>";
-            echo "<a href='#menuPanel' data-icon='grid' data-rel='popup' data-role='button' 
-                title='".__("Menu")."'>&nbsp;</a>";
-
+            
             self::showMenu($menu);
 
             echo "<h1>$title</h1>";
@@ -55,7 +53,7 @@ class PluginMobileHtml extends Html {
          self::echoJqueryCommonScripts();
       echo "
          <script src='".GLPI_ROOT.
-            "/plugins/mobile/lib/jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.js'></script>";
+            "/plugins/mobile/lib/jquery.mobile-1.2.0/jquery.mobile-tables.js'></script>";
       echo "</head>
       <body><div data-role='page' data-theme='a'>";
    }
@@ -106,11 +104,14 @@ class PluginMobileHtml extends Html {
    static function showMenu($menu) {
       global $CFG_GLPI;
 
+      echo "<a href='#menuPanel' data-icon='grid' data-rel='popup' data-role='button' 
+                title='".__("Menu")."'>&nbsp;</a>";
+
       echo "
       <div data-role='popup' id='menuPanel' data-theme='c'>
          <div data-role='controlgroup' data-type='horizontal' style='margin:5px;'>
             <a href='central.php' data-role='button' data-icon='home'".
-               "data-iconpos='notext'>".__("Home")."</a>
+               "data-iconpos='notext' data-theme='a'>".__("Home")."</a>
             <a href='#' data-role='button' data-icon='star' ".
                "data-iconpos='notext'>".__("Bookmark")."</a>
             <a href='preferences.php' data-role='button' data-icon='gear' ".
@@ -119,7 +120,7 @@ class PluginMobileHtml extends Html {
                "data-iconpos='notext'>".__("Logout")."</a>
          </div>";
       self::showProfileSelecter($CFG_GLPI["root_doc"]."/front/helpdesk.public.php");
-      echo"<div data-role='header' data-position='inline'>".__("Menu")."</div>
+      echo"<br /><div data-role='header'><center>".__("Menu")."</center></div>
          <div data-role='collapsible-set' data-content-theme='c'
                data-collapsed-icon='arrow-r' data-expanded-icon='arrow-d' 
                style='margin:0; width:250px;'>        
@@ -141,6 +142,8 @@ class PluginMobileHtml extends Html {
             console.log("test");
          
             $("#menuPanel").css("height", h);
+
+            $("#search-table").scrollview();
          }});
 
       });
