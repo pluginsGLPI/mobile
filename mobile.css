@@ -2,8 +2,15 @@
    background-image: url("pics/logo.png");
 }
 
-#search-table th,
-#search-table td {
+
+
+#menuPanel {
+   background: #DDD;
+}
+
+
+#searchTable th,
+#searchTable td {
    border: 0;
    border-bottom: 1px solid rgba(0, 0, 0, .08);
    white-space: nowrap;
@@ -13,7 +20,7 @@
 }
 
 
-#search-table th a {
+#searchTable th a {
    white-space: nowrap;
    text-transform: uppercase;
    color: #333 !important;
@@ -21,13 +28,13 @@
    text-decoration: none;
 }
 
-#search-table tr > td:first-child, 
-#search-table tr > th:first-child, 
-#search-table tr:last-child {
+#searchTable tr > td:first-child, 
+#searchTable tr > th:first-child, 
+#searchTable tr:last-child {
    display: none
 }
 
-#search-table tr > td:nth-child(2) {
+#searchTable tr > td:nth-child(2) {
    text-align: center;
    background: white !important;
    padding: 0 5px;
@@ -46,9 +53,9 @@ td.ui-table-cell-visible {
    display: table-cell;
 }
 
-#search-table .th-active-up {
+#searchTable .th-active-up {
    border-top: 2px solid #333;
 }
-#search-table .th-active-down {
+#searchTable .th-active-down {
    border-bottom: 2px solid #333;
 }

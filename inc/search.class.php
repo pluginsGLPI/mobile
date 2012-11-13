@@ -45,7 +45,7 @@ class PluginMobileSearch extends Search {
 
       //init table 
       $qp->top($top)
-         ->Attr('id', "search-table")
+         ->Attr('id', "searchTable")
          ->Attr("data-role", "table")
          ->Attr("data-mode", "columntoggle")
          ->AddClass("table-stripe")

@@ -119,9 +119,9 @@ class PluginMobileHtml extends Html {
                "data-iconpos='notext'>".__("Settings")."</a>
             <a href='../logout.php' data-role='button' data-icon='delete' ".
                "data-iconpos='notext'>".__("Logout")."</a>
-         </div>";
+         </div><br />";
       self::showProfileSelecter($CFG_GLPI["root_doc"]."/front/helpdesk.public.php");
-      echo"<br /><div data-role='header'><center>".__("Menu")."</center></div>
+      echo"<div data-role='header'><center>".__("Menu")."</center></div>
          <div data-role='collapsible-set' data-content-theme='c'
                data-collapsed-icon='arrow-r' data-expanded-icon='arrow-d' 
                style='margin:0; width:250px;'>        
@@ -132,6 +132,48 @@ class PluginMobileHtml extends Html {
       
       ";
    }
+
+   /**
+    * Print the form used to select profile if several are available
+    *
+    * @param $target target of the form
+    *
+    * @return nothing
+   **/
+   static function showProfileSelecter($target) {
+      global $CFG_GLPI;
+
+      echo "<fieldset data-role='controlgroup' data-type='horizontal' 
+         data-mini='true' style='margin-left:5px'>";
+
+      if (count($_SESSION["glpiprofiles"])>1) {
+         echo "<form name='form' method='post' action='".$target."' style='float:left'>";
+         echo "<select name='newprofile' id='newprofile' onChange='submit()'>";
+
+         foreach ($_SESSION["glpiprofiles"] as $key => $val) {
+            echo "<option value='".$key."' ".
+                   (($_SESSION["glpiactiveprofile"]["id"] == $key) ?"selected":"").">".$val['name'].
+                 "</option>";
+         }
+         echo "</select>";
+         echo "<label for='newprofile'>".__("Profile")."</label>";
+         Html::closeForm();
+      }
+
+      if (Session::isMultiEntitiesMode()) {
+         /*ob_start();
+         include $CFG_GLPI['root_doc']."/ajax/entitytree.php";
+         $html = ob_get_contents();
+         ob_end_clean();
+
+         echo $html;*/
+
+         echo "<a href='#' data-role='button' data-icon='check' data-iconpos='notext'>".
+            __("Entity")."</a>";
+      }
+      echo "</fieldset>";
+   }
+
 
    static function echoJqueryCommonScripts() {
 
@@ -152,6 +194,9 @@ JAVASCRIPT;
 
       echo "<script type='text/javascript'>$JS</script>";
    }
+
+   
+
 
    static function showLoginBox($error = '', $REDIRECT = "") {
 
@@ -216,42 +261,5 @@ JAVASCRIPT;
    }
 
 
-   /**
-    * Print the form used to select profile if several are available
-    *
-    * @param $target target of the form
-    *
-    * @return nothing
-   **/
-   static function showProfileSelecter($target) {
-      global $CFG_GLPI;
-
-      echo "<fieldset data-role='controlgroup' data-type='horizontal' data-mini='true'>";
-
-      if (count($_SESSION["glpiprofiles"])>1) {
-         echo "<form name='form' method='post' action='".$target."' style='float:left'>";
-         echo "<select name='newprofile' id='newprofile' onChange='submit()'>";
-
-         foreach ($_SESSION["glpiprofiles"] as $key => $val) {
-            echo "<option value='".$key."' ".
-                   (($_SESSION["glpiactiveprofile"]["id"] == $key) ?"selected":"").">".$val['name'].
-                 "</option>";
-         }
-         echo "</select>";
-         echo "<label for='newprofile'>".__("Profile")."</label>";
-         Html::closeForm();
-      }
-
-      if (Session::isMultiEntitiesMode()) {
-         /*ob_start();
-         include $CFG_GLPI['root_doc']."/ajax/entitytree.php";
-         $html = ob_get_contents();
-         ob_end_clean();
-
-         echo $html;*/
-
-         echo "<a href='#' data-role='button' data-icon='check'>".__("Entity")."</a>";
-      }
-      echo "</fieldset>";
-   }
+   
 }
