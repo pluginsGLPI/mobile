@@ -30,13 +30,6 @@
 }
 
 
-#mobileTable tr > td:nth-child(2) {
-   text-align: center;
-   background: white !important;
-   padding: 0 5px;
-}
-
-
 /* Manually hidden */ 
 th.ui-table-cell-hidden,
 td.ui-table-cell-hidden {
