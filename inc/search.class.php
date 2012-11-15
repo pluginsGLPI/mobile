@@ -15,8 +15,9 @@ class PluginMobileSearch extends Search {
       $html = utf8_decode(ob_get_contents());
       ob_end_clean();
 
+
       //init querypath lib
-      $top = "#massformTicket table.tab_cadrehov";
+      $top = ".tab_cadrehov";
       $options = array('ignore_parser_warnings' => TRUE);
       $qp = qp($html, NULL, $options);
       
@@ -24,8 +25,13 @@ class PluginMobileSearch extends Search {
       $qp->remove('input[type=checkbox]');
       $qp->remove('script');
 
+      //get pager content
+      $pager = $qp->find(".tab_cadre_pager td:last-child")->html();
+      $tmp = explode(" ", $pager);
+      $numrows = array_pop($tmp);
+
       //clean table items
-      $qp->find("tr")
+      $qp->top($top)->find("tr")
          ->removeClass("tab_bg_1")
          ->removeClass("tab_bg_2");
       $qp->find("td")
@@ -54,19 +60,21 @@ class PluginMobileSearch extends Search {
 
       echo $qp->html();
 
-      self::displayFooterNavBar("");
+      
+      
+
+      self::displayFooterNavBar($numrows);
    }
 
    static function showGenericSearch($itemtype, array $params) {
 
    }
 
-   public static function displayFooterNavBar($url = '', $numrows) {
+   public static function displayFooterNavBar($numrows) {
       global $LANG, $CFG_GLPI;
 
-      if ($url != '') $url = $CFG_GLPI["root_doc"]."/plugins/mobile/front/".$url;
-
-      $step = $_SESSION['plugin_mobile']['rows_limit'];
+      $url = "search.php?itemtype=".$_REQUEST['itemtype'];
+      $step = $_SESSION['glpilist_limit'];
 
       if (!isset($_GET['start'])) $start = 0;
       else $start = $_GET['start'];
@@ -111,8 +119,7 @@ class PluginMobileSearch extends Search {
       echo "<ul>";
 
          echo "<li><a href='".$CFG_GLPI["root_doc"]."/plugins/mobile/front/searchbox.php?itemtype="
-               .$_GET['itemtype']."&menu=".$_GET['menu'].
-               "&ssmenu=".$_GET['ssmenu']."' data-icon='search' data-rel='dialog'>"
+               .$_GET['itemtype']."' data-icon='search' data-rel='dialog'>"
                .__("Search")."</a></li>";
 
          echo "<li><a ";

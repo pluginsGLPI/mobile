@@ -12,12 +12,6 @@ class PluginMobileHtml extends Html {
     * @param $option    option corresponding to the page displayed (default '')
    **/
    static function header($title, $url='', $sector="none", $item="none", $option="") {
-      ob_start();
-      parent::header($title, $url, $sector, $item, $option);
-      $html = ob_get_contents();
-      ob_end_clean();
-
-      $menu = self::extractMenu($html);
       
       self::includeHeader($title);
 
@@ -25,7 +19,7 @@ class PluginMobileHtml extends Html {
 
          <div data-role='header'>";
             
-            self::showMenu($menu);
+            PluginMobileMenu::show();
 
             echo "<h1>$title</h1>";
 
@@ -68,111 +62,6 @@ class PluginMobileHtml extends Html {
 
 
       echo "</div></div></body></html>";
-   }
-
-   static function extractMenu($html) {
-      global $CFG_GLPI;
-
-      //extract menu; search for <div id='c_menu'>
-      preg_match("/<ul id='menu.*>(.*)<\/div>/Uism", $html, $matches);
-      $menu =  $matches[1];
-
-      //remove unused attributes
-      $menu = preg_replace(array(
-         "/onmouseover=\".*\"/U",
-         "/class=['|\"].*['|\"]/U",
-         "/accesskey='.*'/U"
-      ), "", $menu);
-
-
-      //replace 1st levels
-      $menu = preg_replace("/<\/li><li id='menu/Uism", "<li id='menu", $menu);
-      $menu = preg_replace("/<li id='menu.*'.*>.*<a href.*>(.*)<\/a>.*(<ul.*\/ul>)/Uism", 
-         "<div data-role='collapsible' data-inset='false'>\n<h2>$1</h2>\n$2</div>", $menu);
-
-      //add listview attr to ul
-      $menu = str_replace("<ul", "<ul data-role='listview'", $menu);
-
-      //replace href for get page in plugin mobile
-      $menu = str_replace("href='", "href='page.php?url=", $menu);
-
-      //remove base glpi from url
-      $menu = str_replace($CFG_GLPI['root_doc']."/", "", $menu);
-
-      return $menu;
-   }
-
-   static function showMenu($menu) {
-      global $CFG_GLPI;
-
-      echo "<a href='#menuPanel' data-icon='grid' data-rel='popup' data-role='button' 
-                title='".__("Menu")."'>&nbsp;</a>";
-
-      echo "
-      <div data-role='popup' id='menuPanel'>
-         <div data-role='controlgroup' data-type='horizontal' style='margin:5px;'>
-            <a href='central.php' data-role='button' data-icon='home'".
-               "data-iconpos='notext' data-theme='a'>".__("Home")."</a>
-            <a href='#' data-role='button' data-icon='star' ".
-               "data-iconpos='notext'>".__("Bookmark")."</a>
-            <a href='preferences.php' data-role='button' data-icon='gear' ".
-               "data-iconpos='notext'>".__("Settings")."</a>
-            <a href='../logout.php' data-role='button' data-icon='delete' ".
-               "data-iconpos='notext'>".__("Logout")."</a>
-         </div>";
-      self::showProfileSelecter($CFG_GLPI["root_doc"]."/front/helpdesk.public.php");
-      echo"<div data-role='header'><center>".__("Menu")."</center></div>
-         <div data-role='collapsible-set' data-content-theme='c'
-               data-collapsed-icon='arrow-r' data-expanded-icon='arrow-d' 
-               style='margin:0; width:250px;'>        
-            $menu
-            </div><!-- /collapsible -->
-         </div><!-- /collapsible set -->
-      </div><!-- /popup -->
-      
-      ";
-   }
-
-   /**
-    * Print the form used to select profile if several are available
-    *
-    * @param $target target of the form
-    *
-    * @return nothing
-   **/
-   static function showProfileSelecter($target) {
-      global $CFG_GLPI;
-
-      echo"<div data-role='header'><center>".__("Profile")."</center></div>";
-      echo "<fieldset data-role='controlgroup' data-type='horizontal' 
-         data-mini='true' style='margin-left:5px'>";
-
-      if (count($_SESSION["glpiprofiles"])>1) {
-         echo "<form name='form' method='post' action='".$target."' style='float:left'>";
-         echo "<select name='newprofile' id='newprofile' onChange='submit()'>";
-
-         foreach ($_SESSION["glpiprofiles"] as $key => $val) {
-            echo "<option value='".$key."' ".
-                   (($_SESSION["glpiactiveprofile"]["id"] == $key) ?"selected":"").">".$val['name'].
-                 "</option>";
-         }
-         echo "</select>";
-         echo "<label for='newprofile'>".__("Profile")."</label>";
-         Html::closeForm();
-      }
-
-      if (Session::isMultiEntitiesMode()) {
-         /*ob_start();
-         include $CFG_GLPI['root_doc']."/ajax/entitytree.php";
-         $html = ob_get_contents();
-         ob_end_clean();
-
-         echo $html;*/
-
-         echo "<a href='#' data-role='button' data-icon='check' data-iconpos='notext'>".
-            __("Entity")."</a>";
-      }
-      echo "</fieldset>";
    }
 
 
