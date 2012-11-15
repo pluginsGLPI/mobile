@@ -8,6 +8,10 @@
    background: #DDD;
 }
 
+ #centralView {
+   border: 1px solid #DDD;
+ }
+
 
 #searchTable th,
 #searchTable td {

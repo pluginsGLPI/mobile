@@ -4,7 +4,7 @@ class PluginMobileCentral extends Central {
 
    static function showForMobile() {
 
-      echo "<div data-role='collapsible-set'>
+      echo "<div data-role='collapsible-set' data-content-theme='a'>
 
          <div data-role='collapsible' data-collapsed='true'>
          <h3>".__("Personal View")."</h3>
