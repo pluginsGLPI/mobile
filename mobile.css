@@ -17,6 +17,7 @@
    padding: 6px 4px;
    color: rgba(0, 0, 0, 0.5) !important;
    font-size: 0.9em;
+   vertical-align: top;
 }
 
 
@@ -28,11 +29,6 @@
    text-decoration: none;
 }
 
-#searchTable tr > td:first-child, 
-#searchTable tr > th:first-child, 
-#searchTable tr:last-child {
-   display: none
-}
 
 #searchTable tr > td:nth-child(2) {
    text-align: center;
