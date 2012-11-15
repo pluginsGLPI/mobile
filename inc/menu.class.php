@@ -8,7 +8,7 @@ class PluginMobileMenu {
       $m = self::getArray();
 
       echo "<a href='#menuPanel' data-icon='grid' data-rel='popup' data-role='button' 
-                title='".__("Menu")."'>&nbsp;</a>";
+                title='".__("Menu")."'>".__("Menu")."</a>";
 
       echo "
       <div data-role='popup' id='menuPanel'>

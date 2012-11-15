@@ -15,7 +15,7 @@ class PluginMobileHtml extends Html {
       
       self::includeHeader($title);
 
-      echo "<img src='../pics/logo.png' title='".__('Home')."' />
+      echo "<a href='central.php'><img src='../pics/logo.png' title='".__('Home')."' /></a>
 
          <div data-role='header'>";
             
