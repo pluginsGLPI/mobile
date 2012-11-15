@@ -8,13 +8,9 @@
    background: #DDD;
 }
 
- #centralView {
-   border: 1px solid #DDD;
- }
 
-
-#searchTable th,
-#searchTable td {
+#mobileTable th,
+#mobileTable td {
    border: 0;
    border-bottom: 1px solid rgba(0, 0, 0, .08);
    white-space: nowrap;
@@ -25,7 +21,7 @@
 }
 
 
-#searchTable th a {
+#mobileTable th a {
    white-space: nowrap;
    text-transform: uppercase;
    color: #333 !important;
@@ -34,7 +30,7 @@
 }
 
 
-#searchTable tr > td:nth-child(2) {
+#mobileTable tr > td:nth-child(2) {
    text-align: center;
    background: white !important;
    padding: 0 5px;
@@ -53,9 +49,9 @@ td.ui-table-cell-visible {
    display: table-cell;
 }
 
-#searchTable .th-active-up {
+#mobileTable .th-active-up {
    border-top: 2px solid #333;
 }
-#searchTable .th-active-down {
+#mobileTable .th-active-down {
    border-bottom: 2px solid #333;
 }

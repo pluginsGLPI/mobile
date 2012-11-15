@@ -98,7 +98,7 @@ class PluginMobileCentral extends Central {
 
       //init table 
       $qp->top($top)
-         ->Attr('id', "searchTable")
+         ->Attr('id', "mobileTable")
          ->Attr("data-role", "table")
          ->Attr("data-mode", "columntoggle")
          ->AddClass("table-stripe");
