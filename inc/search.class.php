@@ -45,6 +45,9 @@ class PluginMobileSearch extends Search {
          ->parent()->AddClass("th-active-up");
       $qp->top($top)->find("tr:first-child img")->remove();
 
+      //remove last tr
+      $qp->top($top)->find("tr:last-child")->remove();
+
       //remove tooltips
       $qp->top($top)->find("span.x-hidden")->remove();
       $qp->top($top)->find("tr a img")->parent()->remove();

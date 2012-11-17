@@ -1,3 +1,8 @@
+/* fix padding for content in jquery mobile */
+.ui-content:has(#mobileTable) {
+   padding: 0 !important;
+}
+
 .ui-icon-glpi-mobile-home {
    background-image: url("pics/logo.png");
 }

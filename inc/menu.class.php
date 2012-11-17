@@ -14,13 +14,13 @@ class PluginMobileMenu {
       <div data-role='popup' id='menuPanel'>
          <div data-role='controlgroup' data-type='horizontal' style='margin:5px;'>
             <a href='central.php' data-role='button' data-icon='home'".
-               "data-iconpos='notext' data-theme='a'>".__("Home")."</a>
+               "data-iconpos='notext' data-theme='d' data-mini='true'>".__("Home")."</a>
             <a href='#' data-role='button' data-icon='star' ".
-               "data-iconpos='notext'>".__("Bookmark")."</a>
+               "data-iconpos='notext' data-theme='d' data-mini='true'>".__("Bookmark")."</a>
             <a href='preferences.php' data-role='button' data-icon='gear' ".
-               "data-iconpos='notext'>".__("Settings")."</a>
+               "data-iconpos='notext' data-theme='d' data-mini='true'>".__("Settings")."</a>
             <a href='../logout.php' data-role='button' data-icon='delete' ".
-               "data-iconpos='notext'>".__("Logout")."</a>
+               "data-iconpos='notext' data-theme='d' data-mini='true'>".__("Logout")."</a>
          </div>";
       self::showProfileSelecter($CFG_GLPI["root_doc"]."front/helpdesk.public.php");
       echo"<div data-role='header'><center>".__("Menu")."</center></div>
