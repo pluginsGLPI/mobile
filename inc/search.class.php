@@ -52,6 +52,13 @@ class PluginMobileSearch extends Search {
       $qp->top($top)->find("span.x-hidden")->remove();
       $qp->top($top)->find("tr a img")->parent()->remove();
 
+      //replace links
+      foreach ($qp->top($top)->find("td a") as $a) {
+         $href = explode("=", $a->attr("href"));
+         $id = array_pop($href);
+         $a->attr("href", "page.php?itemtype=$itemtype&id=$id");
+      }
+
       //init table 
       $qp->top($top)
          ->Attr('id', "mobileTable")
@@ -62,9 +69,6 @@ class PluginMobileSearch extends Search {
 
 
       echo $qp->html();
-
-      
-      
 
       self::displayFooterNavBar($numrows);
    }
