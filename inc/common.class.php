@@ -74,13 +74,6 @@ class PluginMobileCommon {
       return $version;
    }
 
-   static function largeScreen() {
-      $navigator = navigatorDetect();
-      if(in_array($navigator, array('iPad', 'Desktop'))) return true;
-      elseif ($navigator == 'Android' && isAndroidTablet()) return true;
-      else return false;
-   }
-
    static function isAndroidTablet() {
       if (isset($_SERVER['HTTP_USER_AGENT'])) {
          if(stripos($_SERVER['HTTP_USER_AGENT'],'mobile') === false) return true;
@@ -107,5 +100,12 @@ class PluginMobileCommon {
          //else redirect login page
          header("location: ".GLPI_ROOT."/plugins/mobile/index.php");
       }
+   }
+
+   static function largeScreen() {
+      $navigator = self::navigatorDetect();
+      if(in_array($navigator, array('iPad', 'Desktop'))) return true;
+      elseif ($navigator == 'Android' && iself::sAndroidTablet()) return true;
+      else return false;
    }
 }

@@ -57,10 +57,22 @@ td.ui-table-cell-visible {
 
 
 /* Page CSS **/
+#mobileItem {
+   margin: -15px;
+}
+
 .ui-field-contain label {
    vertical-align: top;
    display: inline-block;
-   width: 19.6%;
+   width: 40% !important;
    margin: 0 2% 0 0;
-   white-space: nowrap;
+   white-space: pre-line;
+   font-weight: bold;
+}
+
+.ui-field-contain input.ui-input-text, 
+.ui-field-contain textarea.ui-input-text, 
+.ui-field-contain .ui-input-search,
+.ui-field-contain .ui-select {
+   width: 48% !important;
 }

@@ -2,20 +2,69 @@
 
 class PluginMobilePage extends CommonDBTM {
 
-   static function showItem($itemtype, $id) {
-      $readonlyFields = array('id', 'date_mod', 'uuid');
+   static function getTitle($itemtype, $id) {
+      $obj = new $itemtype;
+      $obj->getFromDB($id);
 
+      $name = $obj->fields['name'];
+      if (isset($obj->fields['completename'])) $name = $obj->fields['completename'];
+
+      return "$name ($id)";
+   }
+
+
+
+   static function showItem($itemtype, $id) {
       $obj = new $itemtype;
       $obj->getFromDB($id);
       $table = $obj->getTable();
-
       $searchOptions = Search::getOptions($itemtype);
 
-      echo "<ul data-role='listview' data-theme='a'>";
+      //remove undisplayable fields
       foreach($obj->fields as $field => $value) {
-         $opt_num = self::getOptionNumber($searchOptions, $table, $field);
-         if ($opt_num === false) continue; 
-         $itemSearchOptions = $searchOptions[$opt_num];
+         if (self::getOptionNumber($searchOptions, $table, $field) === false) {
+            unset($obj->fields[$field]);
+         }
+      }
+
+      //show fields (if large screen, on two columns)
+      echo "<div id='mobileItem'>";
+      if (PluginMobileCommon::largeScreen()) {
+         $nb_items = count($obj->fields);
+         
+         $tmp = array_chunk($obj->fields, ceil($nb_items/2), true);
+         $fields1 = $tmp[1];
+         $fields2 = $tmp[0];
+
+         echo "<div class='ui-grid-a' id='tablet-grid'>";
+         echo "<div class='ui-block-a'>";
+         self::showItemFields($itemtype, $fields1);
+         echo "</div>";
+         echo "<div class='ui-block-b'>";
+         self::showItemFields($itemtype, $fields2);
+         echo "</div>";
+         echo "</div>";
+
+      }  else {  
+         self::showItemFields($itemtype, $obj->fields);
+      }
+      echo "</div>";
+   }
+
+
+
+   function showItemFields($itemtype, $fields) {
+      $readonlyFields = array('id', 'date_mod', 'uuid');
+
+      $obj = new $itemtype;
+      $table = $obj->getTable();
+      $searchOptions = Search::getOptions($itemtype);
+
+      //init list view
+      echo "<ul data-role='listview' data-theme='a'>";
+      foreach($fields as $field => $value) {
+         //get current search option
+         $itemSearchOptions = $searchOptions[self::getOptionNumber($searchOptions, $table, $field)];
 
          echo "<li data-role='fieldcontain'>";
          echo "<label for='$field' class='select'>".$itemSearchOptions['name']."</label>";
@@ -24,7 +73,9 @@ class PluginMobilePage extends CommonDBTM {
             echo $value;
          } else {
 
-            if ($itemSearchOptions['table'] != $table) {
+            if ($field == "entities_id") {
+               echo Dropdown::getDropdownName($itemSearchOptions['table'], $value);
+            } elseif($itemSearchOptions['table'] != $table) {
                Dropdown::show(getItemTypeForTable($itemSearchOptions['table']),
                                  array('value'     => $value,
                                        'name'      => $field,
@@ -48,6 +99,8 @@ class PluginMobilePage extends CommonDBTM {
       echo "</ul>";
    }
 
+
+
    static function getOptionNumber($opts, $table, $field) {
       foreach ($opts as $num => $opt) {
          if ($opt['linkfield'] == $field 
@@ -60,6 +113,7 @@ class PluginMobilePage extends CommonDBTM {
       }
       return false;
    }
+   
    
 
    static function showEquals($searchopt, $value) {
