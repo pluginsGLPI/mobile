@@ -130,22 +130,22 @@ class PluginMobileSearch extends Search {
                .__("Search")."</a></li>";
 
          echo "<li><a ";
-         if (!$disable_first) echo "href='".$url."&".$get_str.$start_str.$first."' rel='external'";
+         if (!$disable_first) echo "href='".$url."&".$get_str.$start_str.$first."'";
          else echo "class='ui-disabled'";
          echo " data-icon='back'>".__("First")."</a></li>";
 
          echo "<li><a ";
-         if (!$disable_prev) echo "href='".$url."&".$get_str.$start_str.$prev."' rel='external'";
+         if (!$disable_prev) echo "href='".$url."&".$get_str.$start_str.$prev."'";
          else echo "class='ui-disabled'";
          echo " data-icon='arrow-l'>".__("Previous")."</a></li>";
 
          echo "<li><a ";
-         if (!$disable_next) echo "href='".$url."&".$get_str.$start_str.$next."' rel='external'";
+         if (!$disable_next) echo "href='".$url."&".$get_str.$start_str.$next."'";
          else echo "class='ui-disabled'";
          echo " data-icon='arrow-r'>".__("Next")."</a></li>";
 
          echo "<li><a ";
-         if (!$disable_end) echo "href='".$url."&".$get_str.$start_str.$last."' rel='external'";
+         if (!$disable_end) echo "href='".$url."&".$get_str.$start_str.$last."'";
          else echo "class='ui-disabled'";
          echo " data-icon='forward'>".__("Last")."</a></li>";
 
