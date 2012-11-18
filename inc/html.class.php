@@ -18,6 +18,8 @@ class PluginMobileHtml extends Html {
       //include header (css, js)
       self::includeHeader($title);
 
+      $screen = (PluginMobileCommon::largeScreen() ? "mobileLargeScreen" : "mobileMiniScreen");
+
       //csontruct base header html
       echo "<a href='central.php'><img src='../pics/logo.png' title='".__('Home')."' /></a>
 
@@ -30,7 +32,7 @@ class PluginMobileHtml extends Html {
             //echo "<a data-icon='back' data-back='true' title='".__('Back')."'>".__('Back')."</a>";
 
          echo "</div>
-         <div data-role='content' data-theme='a'>";
+         <div data-role='content' data-theme='a' class='$screen'>";
    
    }
 
@@ -68,7 +70,7 @@ class PluginMobileHtml extends Html {
 
 
    static function echoJqueryCommonScripts() {
-
+      
       $JS = <<<JAVASCRIPT
       $(document).bind("mobileinit", function(){
          

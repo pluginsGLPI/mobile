@@ -53,7 +53,7 @@ class PluginMobilePage extends CommonDBTM {
 
 
 
-   function showItemFields($itemtype, $fields) {
+   static function showItemFields($itemtype, $fields) {
       $readonlyFields = array('id', 'date_mod', 'uuid');
 
       $obj = new $itemtype;
@@ -103,17 +103,21 @@ class PluginMobilePage extends CommonDBTM {
 
    static function getOptionNumber($opts, $table, $field) {
       foreach ($opts as $num => $opt) {
-         if ($opt['linkfield'] == $field 
-            && $opt['table'] != $table 
+         if (
+               isset($opt['linkfield'])
+               && $opt['linkfield'] == $field 
+               && $opt['table'] != $table 
             || 
-            $opt['field'] == $field
-            && $opt['linkfield'] == $field ) {
+               isset($opt['field'])
+               && $opt['field'] == $field
+               && $opt['linkfield'] == $field
+         ) {
             return $num;
          }
       }
       return false;
    }
-   
+
    
 
    static function showEquals($searchopt, $value) {

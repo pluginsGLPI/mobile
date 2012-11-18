@@ -7,6 +7,10 @@
    background-image: url("pics/logo.png");
 }
 
+.ui-field-contain label {
+   font-weight: bold;
+}
+
 
 
 #menuPanel {
@@ -59,20 +63,30 @@ td.ui-table-cell-visible {
 /* Page CSS **/
 #mobileItem {
    margin: -15px;
+   padding: 15px 0 0 5px;
+   background-color: #EEE;
 }
 
-.ui-field-contain label {
+.mobileLargeScreen #mobileItem li {
+   min-height: 44px;
+   border-left: 1px solid #CCC;
+}
+
+#mobileItem .ui-field-contain label {
    vertical-align: top;
    display: inline-block;
-   width: 40% !important;
    margin: 0 2% 0 0;
    white-space: pre-line;
-   font-weight: bold;
+   
 }
 
-.ui-field-contain input.ui-input-text, 
-.ui-field-contain textarea.ui-input-text, 
-.ui-field-contain .ui-input-search,
-.ui-field-contain .ui-select {
-   width: 48% !important;
+.mobileLargeScreen .ui-field-contain label {
+   width: 35% !important;
+}
+
+.mobileLargeScreen .ui-field-contain input.ui-input-text, 
+.mobileLargeScreen .ui-field-contain textarea.ui-input-text, 
+.mobileLargeScreen .ui-field-contain .ui-input-search,
+.mobileLargeScreen .ui-field-contain .ui-select {
+   width: 58% !important;
 }
