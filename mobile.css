@@ -53,3 +53,14 @@ td.ui-table-cell-visible {
 #mobileTable .th-active-down {
    border-bottom: 2px solid #333;
 }
+
+
+
+/* Page CSS **/
+.ui-field-contain label {
+   vertical-align: top;
+   display: inline-block;
+   width: 19.6%;
+   margin: 0 2% 0 0;
+   white-space: nowrap;
+}
