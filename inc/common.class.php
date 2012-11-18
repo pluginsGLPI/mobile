@@ -5,6 +5,26 @@ if (!defined('GLPI_ROOT')) {
 
 class PluginMobileCommon {
 
+   static function checkLogin() {
+
+      //check glpi login && redirect to plugin mobile
+      if (!isset ($_SESSION["glpiactiveprofile"])
+      || $_SESSION["glpiactiveprofile"]["interface"] != "central") {
+         // Gestion timeout session
+         if (!Session::getLoginUserID()) {
+
+            if (strpos($_SERVER['PHP_SELF'], 'index.php') === false
+            && strpos($_SERVER['PHP_SELF'], 'login.php') === false
+            && strpos($_SERVER['PHP_SELF'], 'logout.php') === false
+            && strpos($_SERVER['PHP_SELF'], 'recoverpassword.form.php') === false
+            ) {
+               Html::Redirect(GLPI_ROOT . "/plugins/mobile/index.php");
+               exit ();
+            }
+         }
+      }
+   }
+
    static function checkParams() {
       if (!isset($_SESSION['plugin_mobile']) && isset($_SESSION['glpiID'])) {
          $navigator = self::navigatorDetect();

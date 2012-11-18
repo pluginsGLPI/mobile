@@ -12,9 +12,13 @@ class PluginMobileHtml extends Html {
     * @param $option    option corresponding to the page displayed (default '')
    **/
    static function header($title, $url='', $sector="none", $item="none", $option="") {
+      //verify profile
+      PluginMobileCommon::checkLogin();
       
+      //include header (css, js)
       self::includeHeader($title);
 
+      //csontruct base header html
       echo "<a href='central.php'><img src='../pics/logo.png' title='".__('Home')."' /></a>
 
          <div data-role='header'>";
@@ -54,12 +58,10 @@ class PluginMobileHtml extends Html {
    }
 
    static function footer($keepDB=false) {
-      ob_start();
+      /*ob_start();
       parent::footer($keepDB);
       $html = ob_get_contents();
-      ob_end_clean();
-
-
+      ob_end_clean();*/
 
       echo "</div></div></body></html>";
    }
@@ -127,7 +129,7 @@ JAVASCRIPT;
       echo "<input type='password' name='login_password' id='login_password' value='' />";
       echo "</div>";
 
-      echo "<button type='submit' data-icon='check'>".__('Post')."</button>";
+      echo "<button type='submit' data-icon='check' data-theme='d'>".__('Post')."</button>";
 
       echo "</fieldset>";
 

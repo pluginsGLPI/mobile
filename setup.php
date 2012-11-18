@@ -11,16 +11,13 @@ function plugin_init_mobile() {
    
    $menu_entry = 'front/central.php';
    $PLUGIN_HOOKS['menu_entry']['mobile']     = $menu_entry;
-   
-   
-   //$PLUGIN_HOOKS['redirect_page']['mobile']  = 'front/central.php';
 
+   //if mobile navigator detected, redirect to plugin mobile
    $plug = new Plugin;
    if ($plug->isInstalled('mobile') && $plug->isActivated('mobile')) {
       PluginMobileCommon::checkParams();
       if (PluginMobileCommon::isNavigatorMobile()) PluginMobileCommon::redirectMobile();
    }
-
 }
 
 
