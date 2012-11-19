@@ -22,7 +22,7 @@ class PluginMobileMenu {
             <a href='../logout.php' data-role='button' data-icon='delete' ".
                "data-iconpos='notext' data-theme='d' data-mini='true'>".__("Logout")."</a>
          </div>";
-      self::showProfileSelecter($CFG_GLPI["root_doc"]."front/helpdesk.public.php");
+      self::showProfileSelecter($CFG_GLPI["root_doc"]."/front/helpdesk.public.php");
       echo"<div data-role='header'><center>".__("Menu")."</center></div>
          <div data-role='collapsible-set' data-content-theme='c'
                data-collapsed-icon='arrow-r' data-expanded-icon='arrow-d' 

@@ -51,10 +51,10 @@ td.ui-table-cell-visible {
    display: table-cell;
 }
 
-#mobileTable .th-active-up {
+#mobileTable thead .th-active-up {
    border-top: 2px solid #333;
 }
-#mobileTable .th-active-down {
+#mobileTable thead .th-active-down {
    border-bottom: 2px solid #333;
 }
 

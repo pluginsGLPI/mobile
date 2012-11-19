@@ -39,6 +39,9 @@ class PluginMobileSearch extends Search {
          ->removeAttr("width")
          ->removeClass("tab_bg_2_2")
          /*->AddClass("ui-body-a")*/;
+      $qp->top($top)->find("th:first-child:empty")->remove();
+      $qp->top($top)->find("td:first-child:empty")->remove();
+      
 
       //remove img in th and replace it by border (TODO : filter by up/down img)
       $qp->top($top)->find("tr:first-child img")
@@ -58,6 +61,14 @@ class PluginMobileSearch extends Search {
          $id = array_pop($href);
          $a->attr("href", "page.php?itemtype=$itemtype&id=$id");
       }
+
+      //place th in thead
+      $qp->top($top)->append("<thead></thead>");
+      $thead = $qp->top($top)->find("tr:first-child")->html();
+      $qp->top($top)->find("tr:first-child")->remove();
+      $qp->top($top)->find("thead")->append($thead);
+      $qp->top($top)->find("th:first-child:not(:empty)")->addClass("essential persist");
+      $qp->top($top)->find("th:not(.essential)")->addClass("optionnal");
 
       //init table 
       $qp->top($top)
