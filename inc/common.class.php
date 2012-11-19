@@ -25,6 +25,12 @@ class PluginMobileCommon {
       }
    }
 
+   static function checkParams() {
+      if (!isset($_SESSION['plugin_mobile']) && isset($_SESSION['glpiID'])) {
+         $navigator = self::navigatorDetect();
+      }
+   }
+
 
    static function navigatorDetect() {
       if (isset($_SERVER['HTTP_USER_AGENT'])) {
@@ -85,17 +91,14 @@ class PluginMobileCommon {
    }
 
    static function redirectMobile() {
-      if (strpos($_SERVER['SCRIPT_FILENAME'], 'plugins/mobile') === false
+      if (!isset($_SESSION['glpiactiveprofile'])
+         && strpos($_SERVER['SCRIPT_FILENAME'], 'plugins/mobile') === false
          && strpos($_SERVER['SCRIPT_FILENAME'], 'login.php') === false) {
          //check if alternate auth is available
          Auth::checkAlternateAuthSystems(true, "plugin_mobile_1");
 
-         if(!isset($_SESSION['glpiactiveprofile'])) {
-            header("location: ".GLPI_ROOT."/plugins/mobile/login.php");
-         } else {
-            //else redirect login page
-            header("location: ".GLPI_ROOT."/plugins/mobile/front/central.php");
-         }
+         //else redirect login page
+         header("location: ".GLPI_ROOT."/plugins/mobile/index.php");
       }
    }
 
