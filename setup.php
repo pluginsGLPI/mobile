@@ -15,8 +15,9 @@ function plugin_init_mobile() {
    //if mobile navigator detected, redirect to plugin mobile
    $plug = new Plugin;
    if ($plug->isInstalled('mobile') && $plug->isActivated('mobile')) {
-      PluginMobileCommon::checkParams();
-      if (PluginMobileCommon::isNavigatorMobile()) PluginMobileCommon::redirectMobile();
+      if (PluginMobileCommon::isNavigatorMobile()) {
+         PluginMobileCommon::redirectMobile();
+      }
    }
 }
 
