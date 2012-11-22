@@ -47,7 +47,7 @@ class PluginMobileHtml extends Html {
          <link rel='stylesheet' href='".GLPI_ROOT.
             "/plugins/mobile/themes/default/glpi-mobile.min.css' />
          <link rel='stylesheet' href='".GLPI_ROOT.
-            "/plugins/mobile/lib/jquery.mobile-1.2.0/jquery.mobile.structure-1.2.0.min.css' /> 
+            "/plugins/mobile/lib/jquery.mobile-1.3.0/css/structure/jquery.mobile.structure.css' /> 
          
 
          <link rel='stylesheet' href='".GLPI_ROOT."/plugins/mobile/mobile.css' /> 
@@ -55,7 +55,7 @@ class PluginMobileHtml extends Html {
          <script src='".GLPI_ROOT."/plugins/mobile/lib/jquery-1.8.3.min.js'></script>";
          self::echoJqueryCommonScripts();
       echo "<script src='".GLPI_ROOT.
-            "/plugins/mobile/lib/jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.js'></script>";
+            "/plugins/mobile/lib/jquery.mobile-1.3.0/js/'></script>";
 
       echo "</head>
       <body><div data-role='page' data-theme='a'>";
