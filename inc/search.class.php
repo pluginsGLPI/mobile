@@ -41,14 +41,25 @@ class PluginMobileSearch extends Search {
          /*->AddClass("ui-body-a")*/;
       $qp->top($top)->find("th:first-child:empty")->remove();
       $qp->top($top)->find("td:first-child:empty")->remove();
-      
+
+      //add priority to th (from 1 to 6)
+      $i = 0;
+      $nb_th = count($qp->top($top)->find("tr:first-child th"));
+      foreach ($qp->top($top)->find("tr:first-child th") as $th) {
+         $i++;
+         if ($i <= 1) continue;
+         //if (strpos($th->attr("class"), "th-active")) continue;
+         $priority = round($i * 6 / $nb_th);
+         $th->Attr('data-priority', $priority);
+         
+      }      
 
       //remove img in th and replace it by border (TODO : filter by up/down img)
       $th = $qp->top($top)->find("tr:first-child img");
       if (!isset($_REQUEST['order']) || $_REQUEST['order'] == "DESC") {
-         $th->parent()->AddClass("th-active-down");
+         $th->parent()->AddClass("th-active-down")->Attr('data-priority', "critical");
       } else {
-         $th->parent()->AddClass("th-active-up");
+         $th->parent()->AddClass("th-active-up")->Attr('data-priority', "critical");
       }
       $qp->top($top)->find("tr:first-child img")->remove();
 
@@ -72,8 +83,9 @@ class PluginMobileSearch extends Search {
          $a->attr("href", "search.php?".$href[1]);
       }
 
+      
       //place th in thead
-      $qp->top($top)->append("<thead></thead>");
+      $qp->top($top)->append("<thead class='ui-bar-b'></thead>");
       $thead = $qp->top($top)->find("tr:first-child")->html();
       $qp->top($top)->find("tr:first-child")->remove();
       $tbody = "";
@@ -94,6 +106,8 @@ class PluginMobileSearch extends Search {
          //->AddClass("table-stroke")
          /*->AddClass("table-stripe")
          ->AddClass("table-stripe")*/;
+
+      
 
 
       echo $qp->html();
