@@ -44,8 +44,12 @@ class PluginMobileSearch extends Search {
       
 
       //remove img in th and replace it by border (TODO : filter by up/down img)
-      $qp->top($top)->find("tr:first-child img")
-         ->parent()->AddClass("th-active-up");
+      $th = $qp->top($top)->find("tr:first-child img");
+      if (!isset($_REQUEST['order']) || $_REQUEST['order'] == "DESC") {
+         $th->parent()->AddClass("th-active-down");
+      } else {
+         $th->parent()->AddClass("th-active-up");
+      }
       $qp->top($top)->find("tr:first-child img")->remove();
 
       //remove last tr
@@ -62,21 +66,34 @@ class PluginMobileSearch extends Search {
          $a->attr("href", "page.php?itemtype=$itemtype&id=$id");
       }
 
+      //replace head links
+      foreach ($qp->top($top)->find("th a") as $a) {
+         $href = explode("?", $a->attr("href"));
+         $a->attr("href", "search.php?".$href[1]);
+      }
+
       //place th in thead
       $qp->top($top)->append("<thead></thead>");
       $thead = $qp->top($top)->find("tr:first-child")->html();
       $qp->top($top)->find("tr:first-child")->remove();
+      $tbody = "";
+      foreach ($qp->top($top)->find("tr") as $tr) {
+         $tbody.= $tr->html();
+      }
+      $qp->top($top)->find("tr")->remove();
+      $qp->top($top)->find("th")->remove();
       $qp->top($top)->find("thead")->append($thead);
-      $qp->top($top)->find("th:first-child:not(:empty)")->addClass("essential persist");
-      $qp->top($top)->find("th:not(.essential)")->addClass("optionnal");
+      $qp->top($top)->append($tbody);
 
       //init table 
       $qp->top($top)
          ->Attr('id', "mobileTable")
          ->Attr("data-role", "table")
          ->Attr("data-mode", "columntoggle")
-         ->AddClass("table-stripe")
-         ->AddClass("table-stripe");
+         //->Attr("data-mode", "reflow")
+         //->AddClass("table-stroke")
+         /*->AddClass("table-stripe")
+         ->AddClass("table-stripe")*/;
 
 
       echo $qp->html();

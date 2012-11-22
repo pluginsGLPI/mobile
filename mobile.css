@@ -58,6 +58,14 @@ td.ui-table-cell-visible {
    border-bottom: 2px solid #333;
 }
 
+.table-stroke thead th {
+  border-bottom: 1px solid rgba(0, 0, 0, .1) !important;
+}
+.table-stroke tbody th,
+.table-stroke tbody tr {
+  border-bottom: 2px solid gray !important;
+}
+
 
 
 /* Page CSS **/
