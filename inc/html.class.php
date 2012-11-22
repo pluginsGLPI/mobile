@@ -52,7 +52,7 @@ class PluginMobileHtml extends Html {
 
          <link rel='stylesheet' href='".GLPI_ROOT."/plugins/mobile/mobile.css' /> 
 
-         <script src='".GLPI_ROOT."/lib/jquery/jquery-1.7.2.min.js'></script>";
+         <script src='".GLPI_ROOT."/plugins/mobile/lib/jquery-1.8.3.min.js'></script>";
          self::echoJqueryCommonScripts();
       echo "<script src='".GLPI_ROOT.
             "/plugins/mobile/lib/jquery.mobile-1.2.0/jquery.mobile-1.2.0.min.js'></script>";
