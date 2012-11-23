@@ -3,6 +3,11 @@
    padding: 0 !important;
 }
 
+/* fix padding in menu logo*/
+#menuIcon  span.ui-btn-inner {
+   padding: 0 5px 0 25px;
+}
+
 .ui-icon-glpi-mobile-home {
    background-image: url("pics/logo.png");
 }
@@ -10,7 +15,6 @@
 .ui-field-contain label {
    font-weight: bold;
 }
-
 
 
 #menuPanel {
@@ -58,7 +62,7 @@ td.ui-table-cell-visible {
    border-bottom: 2px solid #333;
 }
 
-/***** Table th priority ******/
+/***** Responsive Table th priority ******/
 /* Show priority 1 at 320px (20em x 16px) */ 
 @media screen and (min-width: 20em) {
    #mobileTable th.ui-table-priority-1,
@@ -100,6 +104,17 @@ td.ui-table-cell-visible {
    #mobileTable td.ui-table-priority-6 {
      display: table-cell;
    }
+}
+
+/***** Responsive Table toggle button ******/
+.ui-table-columntoggle-btn {
+   top: 0px;
+   position: absolute;
+   right: 5px;
+}
+
+.mobileSearch .ui-content {
+   padding: 0;
 }
 
 

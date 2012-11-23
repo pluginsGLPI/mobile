@@ -6,7 +6,7 @@ if(!isset($_REQUEST['itemtype'])) $_REQUEST['itemtype'] = "";
 
 $title = $_REQUEST['itemtype']::getTypeName(2);
 
-PluginMobileHtml::header($title, $_SERVER['PHP_SELF']);
+PluginMobileHtml::header($title, $_SERVER['PHP_SELF'], "mobileSearch");
 PluginMobileSearch::show($_REQUEST['itemtype']);
 PluginMobileHtml::footer();
 ?>

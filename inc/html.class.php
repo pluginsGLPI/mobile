@@ -16,14 +16,14 @@ class PluginMobileHtml extends Html {
       PluginMobileCommon::checkLogin();
       
       //include header (css, js)
-      self::includeHeader($title);
+      self::includeHeader($title, $url, $sector, $item, $option);
 
       $screen = (PluginMobileCommon::largeScreen() ? "mobileLargeScreen" : "mobileMiniScreen");
 
       //csontruct base header html
-      echo "<a href='central.php'><img src='../pics/logo.png' title='".__('Home')."' /></a>
+      //echo "<a href='central.php'><img src='../pics/logo.png' title='".__('Home')."' /></a>";"
 
-         <div data-role='header'>";
+      echo "<div data-role='header'>";
             
             PluginMobileMenu::show();
 
@@ -36,29 +36,42 @@ class PluginMobileHtml extends Html {
    
    }
 
-   static function includeHeader($title = '') {
-      echo "<!DOCTYPE html>
-      <html>
-      <head>
+   static function includeHeader($title = '', $url='', $sector="none", $item="none", $option="") {
+      echo "<!DOCTYPE html><html><head>";
 
-         <title>$title</title>
-         <meta charset='utf-8' />
-         <meta name='viewport' content='width=device-width, initial-scale=1'>
-         <link rel='stylesheet' href='".GLPI_ROOT.
-            "/plugins/mobile/themes/default/glpi-mobile.min.css' />
-         <link rel='stylesheet' href='".GLPI_ROOT.
-            "/plugins/mobile/lib/jquery.mobile-1.3.0/css/structure/jquery.mobile.structure.css' /> 
+      echo "<title>$title</title>";
+      echo "<meta charset='utf-8' />";
+      echo "<meta name='viewport' content='width=device-width, initial-scale=1'>";
+      
+      // FAV & APPLE DEVICE ICON
+      echo "<link rel='apple-touch-icon' type='image/png' href='".
+         GLPI_ROOT."/plugins/mobile/pics/apple-touch-icon.png' />";
+      echo "<link rel='icon' type='image/png' href='".
+         GLPI_ROOT."/plugins/mobile/pics/favicon.png' />";
+
+      // GLPI MOBILE THEME CSS
+      echo "<link rel='stylesheet' href='".GLPI_ROOT.
+            "/plugins/mobile/themes/default/glpi-mobile.min.css' />";
+
+      // COMMON JQUERY MOBILE CSS
+      echo "<link rel='stylesheet' href='".GLPI_ROOT.
+            "/plugins/mobile/lib/jquery.mobile-1.3.0/css/structure/jquery.mobile.structure.css' />";
          
+      //GENERAL CSS
+      echo "<link rel='stylesheet' href='".GLPI_ROOT."/plugins/mobile/mobile.css' />";
 
-         <link rel='stylesheet' href='".GLPI_ROOT."/plugins/mobile/mobile.css' /> 
+      //JQUERY JS
+      echo "<script src='".GLPI_ROOT."/plugins/mobile/lib/jquery-1.8.3.min.js'></script>";
 
-         <script src='".GLPI_ROOT."/plugins/mobile/lib/jquery-1.8.3.min.js'></script>";
-         self::echoJqueryCommonScripts();
+      // COMMON JS
+      self::echoJqueryCommonScripts();
+
+      //JQUERY MOBILE JS
       echo "<script src='".GLPI_ROOT.
             "/plugins/mobile/lib/jquery.mobile-1.3.0/js/'></script>";
 
-      echo "</head>
-      <body><div data-role='page' data-theme='a'>";
+      echo "</head><body>";
+      echo "<div data-role='page' data-theme='a' class='$sector $item'>";
    }
 
    static function footer($keepDB=false) {
@@ -76,13 +89,11 @@ class PluginMobileHtml extends Html {
       $JS = <<<JAVASCRIPT
       //jquery mobile init
       $(document).bind("mobileinit", function(){
-         
          $("#menuPanel").on({popupbeforeposition: function() {
             var h = $(window).height();
          
             $("#menuPanel").css("height", h);
          }});
-
       });
 
       //jquery init
