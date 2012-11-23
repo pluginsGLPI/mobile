@@ -4,7 +4,7 @@ class PluginMobileSearch extends Search {
 
    static function show($itemtype) {
       self::manageGetValues($itemtype);
-      self::showGenericSearch($itemtype, $_GET);
+      //self::showGenericSearch($itemtype, $_GET);
       self::showList($itemtype, $_GET);
    }
 
@@ -116,7 +116,39 @@ class PluginMobileSearch extends Search {
    }
 
    static function showGenericSearch($itemtype, array $params) {
+      ob_start();
+      parent::showGenericSearch($itemtype, $params);
+      //$html = utf8_decode(ob_get_contents());
+      $html = ob_get_contents();
+      ob_end_clean();
 
+      //init querypath lib
+      $top = "form[name=searchformComputer]";
+      $options = array(
+         'ignore_parser_warnings' => TRUE,
+          'convert_from_encoding' => 'utf-8'
+      );
+      $qp = qp($html, NULL, $options);
+
+      //replace form action
+      //$qp->top($top)->find("form")->attr('action', 
+      // GLPI_ROOT."/plugins/mobile/front/searchbox.php");
+      
+
+      //remove table, replace it with listview
+      $listview = "<ul data-role='listview'>";
+      foreach ($qp->top($top)->find(".tab_cadre_fixe td:first-child table tr") as $tr) {
+         $listview.= "<li data-role='fieldcontain'>";
+         $listview.= str_replace("&nbsp;", "", $tr->html());
+         $listview.= "</li>";
+      }
+      $listview.= "</ul>";
+      $qp->top($top)->find(".tab_cadre_fixe")->remove();
+      $qp->top($top)->find("#searchcriterias")->append($listview);
+      
+
+
+      echo $qp->top($top)->html();
    }
 
    public static function displayFooterNavBar($numrows) {
