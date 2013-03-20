@@ -55,7 +55,7 @@ class PluginMobileHtml extends Html {
 
       // COMMON JQUERY MOBILE CSS
       echo "<link rel='stylesheet' href='".GLPI_ROOT.
-            "/plugins/mobile/lib/jquery.mobile-1.3.0/css/structure/jquery.mobile.structure.css' />";
+            "/plugins/mobile/lib/jquery.mobile-1.3.0/jquery.mobile.structure-1.3.0.css' />";
          
       //GENERAL CSS
       echo "<link rel='stylesheet' href='".GLPI_ROOT."/plugins/mobile/mobile.css' />";
@@ -68,7 +68,7 @@ class PluginMobileHtml extends Html {
 
       //JQUERY MOBILE JS
       echo "<script src='".GLPI_ROOT.
-            "/plugins/mobile/lib/jquery.mobile-1.3.0/js/'></script>";
+            "/plugins/mobile/lib/jquery.mobile-1.3.0/jquery.mobile-1.3.0.min.js'></script>";
 
       echo "</head><body>";
       echo "<div data-role='page' data-theme='a' class='$sector $item'>";
