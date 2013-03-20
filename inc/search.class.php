@@ -19,7 +19,7 @@ class PluginMobileSearch extends Search {
       //init querypath lib
       $top = ".tab_cadrehov";
       $options = array('ignore_parser_warnings' => TRUE);
-      $qp = qp($html, NULL, $options);
+      @$qp = qp($html, NULL, $options);
       
       //remove unused tags
       $qp->remove('input[type=checkbox]');
