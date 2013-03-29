@@ -101,8 +101,7 @@ class PluginMobileSearch extends Search {
          ->Attr("data-mode", "columntoggle")
          //->Attr("data-mode", "reflow")
          //->AddClass("table-stroke")
-         /*->AddClass("table-stripe")
-         ->AddClass("table-stripe")*/;
+         ->AddClass("table-stripe");
 
       
 
