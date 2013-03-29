@@ -2,32 +2,34 @@
 
 class PluginMobileMenu {
 
-   static function show() {
-      global $CFG_GLPI;
-
-      $m = self::getArray();
-
+   static function showIcon() {
       echo "<a href='#menuPanel' id='menuIcon' data-icon='arrow-d' data-rel='popup' 
                data-role='button' data-theme='a' title='".__("Menu")."'><img src='../pics/logo2.png'
                title='".__('Home')."' /></a>";
 
+   }
+
+   static function showPanel() {
+      global $CFG_GLPI;
+
+      $m = self::getArray();
+
       echo "
-      <div data-role='popup' id='menuPanel'>
+      <div data-role='panel' id='menuPanel'>
          <div data-role='controlgroup' data-type='horizontal' style='margin:5px;'>
             <a href='central.php' data-role='button' data-icon='home'".
-               "data-iconpos='notext' data-theme='d' data-mini='true'>".__("Home")."</a>
+               "data-iconpos='notext' data-theme='d'>".__("Home")."</a>
             <a href='#' data-role='button' data-icon='star' ".
-               "data-iconpos='notext' data-theme='d' data-mini='true'>".__("Bookmark")."</a>
+               "data-iconpos='notext' data-theme='d'>".__("Bookmark")."</a>
             <a href='preferences.php' data-role='button' data-icon='gear' ".
-               "data-iconpos='notext' data-theme='d' data-mini='true'>".__("Settings")."</a>
+               "data-iconpos='notext' data-theme='d'>".__("Settings")."</a>
             <a href='../logout.php' data-role='button' data-icon='delete' ".
-               "data-iconpos='notext' data-theme='d' data-mini='true'>".__("Logout")."</a>
+               "data-iconpos='notext' data-theme='d'>".__("Logout")."</a>
          </div>";
       self::showProfileSelecter($CFG_GLPI["root_doc"]."/plugins/mobile/front/central.php");
       echo"<div data-role='header'><center>".__("Menu")."</center></div>
          <div data-role='collapsible-set' data-content-theme='c'
-               data-collapsed-icon='arrow-r' data-expanded-icon='arrow-d' 
-               style='margin:0; width:250px;'> ";       
+               data-collapsed-icon='arrow-r' data-expanded-icon='arrow-d'> ";       
 
 
 
@@ -64,7 +66,7 @@ class PluginMobileMenu {
 
             
       echo "</div><!-- /collapsible -->
-      </div><!-- /popup -->
+      </div><!-- /panel -->
       
       ";
    }

@@ -18,7 +18,11 @@
 
 
 #menuPanel {
-   background: #DDD;
+
+}
+
+.ui-panel-inner {
+   padding: 0 !important;
 }
 
 

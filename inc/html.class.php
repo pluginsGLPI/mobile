@@ -23,9 +23,11 @@ class PluginMobileHtml extends Html {
       //csontruct base header html
       //echo "<a href='central.php'><img src='../pics/logo.png' title='".__('Home')."' /></a>";"
 
+      PluginMobileMenu::showPanel();
+
       echo "<div data-role='header'>";
             
-            PluginMobileMenu::show();
+            PluginMobileMenu::showIcon();
 
             echo "<h1>$title</h1>";
 
