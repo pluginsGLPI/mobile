@@ -64,7 +64,7 @@ class PluginMobileHtml extends Html {
       echo "<script src='".GLPI_ROOT."/plugins/mobile/lib/jquery-1.8.3.min.js'></script>";
 
       // COMMON JS
-      self::echoJqueryCommonScripts();
+      self::displayJqueryCommonScripts();
 
       //JQUERY MOBILE JS
       echo "<script src='".GLPI_ROOT.
@@ -84,7 +84,7 @@ class PluginMobileHtml extends Html {
    }
 
 
-   static function echoJqueryCommonScripts() {
+   static function displayJqueryCommonScripts() {
       
       $JS = <<<JAVASCRIPT
       //jquery mobile init
