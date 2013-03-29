@@ -76,28 +76,28 @@ td.ui-table-cell-visible {
 }
 /* Show priority 2 at 480px (30em x 16px) */ 
 @media screen and (min-width: 30em) {
-   #mobileTable  th.ui-table-priority-2,
+   #mobileTable th.ui-table-priority-2,
    #mobileTable td.ui-table-priority-2 {
      display: table-cell;
    }
 }
 /* Show priority 3 at 640px (40em x 16px) */ 
 @media screen and (min-width: 40em) {
-   #mobileTable  th.ui-table-priority-3,
+   #mobileTable th.ui-table-priority-3,
    #mobileTable td.ui-table-priority-3 {
      display: table-cell;
    }
 }
 /* Show priority 4 at 800px (50em x 16px) */ 
 @media screen and (min-width: 50em) {
-   #mobileTable  th.ui-table-priority-4,
+   #mobileTable th.ui-table-priority-4,
    #mobileTable td.ui-table-priority-4 {
      display: table-cell;
    }
 }
 /* Show priority 5 at 960px (50em x 16px) */ 
 @media screen and (min-width: 60em) {
-   #mobileTable  th.ui-table-priority-5,
+   #mobileTable th.ui-table-priority-5,
    #mobileTable td.ui-table-priority-5 {
      display: table-cell;
    }
@@ -108,6 +108,18 @@ td.ui-table-cell-visible {
    #mobileTable td.ui-table-priority-6 {
      display: table-cell;
    }
+}
+
+/* Manually hidden */
+#mobileTable th.ui-table-cell-hidden,
+#mobileTable td.ui-table-cell-hidden {
+  display: none;
+}
+
+/* Manually shown */
+#mobileTable th.ui-table-cell-visible,
+#mobileTable td.ui-table-cell-visible {
+   display: table-cell;
 }
 
 /***** Responsive Table toggle button ******/
