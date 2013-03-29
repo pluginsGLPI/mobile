@@ -132,9 +132,9 @@ td.ui-table-cell-visible {
 
 #mobileItem .ui-field-contain label {
    vertical-align: top;
-   display: inline-block;
+   display: block;
    margin: 0 2% 0 0;
-   white-space: pre-line;
+   white-space: pre;
    
 }
 
