@@ -70,6 +70,17 @@ class PluginMobileHtml extends Html {
       echo "<script src='".GLPI_ROOT.
             "/plugins/mobile/lib/jquery.mobile/jquery.mobile-1.3.0.min.js'></script>";
 
+      //EXTJS loading (to be removed in 0.85)
+      echo "<script type=\"text/javascript\" src='".
+             GLPI_ROOT."/lib/extjs/adapter/ext/ext-base.js'></script>\n";
+      if ($_SESSION['glpi_use_mode'] == Session::DEBUG_MODE) {
+         echo "<script type='text/javascript' src='".
+                GLPI_ROOT."/lib/extjs/ext-all-debug.js'></script>\n";
+      } else {
+         echo "<script type='text/javascript' src='".
+                GLPI_ROOT."/lib/extjs/ext-all.js'></script>\n";
+      }
+
       echo "</head><body>";
       echo "<div data-role='page' data-theme='a' class='$sector $item'>";
    }

@@ -103,9 +103,6 @@ class PluginMobileSearch extends Search {
          //->AddClass("table-stroke")
          ->AddClass("table-stripe");
 
-      
-
-
       echo $qp->html();
 
       self::displayFooterNavBar($numrows);
