@@ -102,6 +102,7 @@ class PluginMobileCommon {
    }
 
    static function largeScreen() {
+      return false;
       $navigator = self::navigatorDetect();
       if(in_array($navigator, array('iPad', 'Desktop'))) return true;
       elseif ($navigator == 'Android' && self::isAndroidTablet()) return true;

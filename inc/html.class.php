@@ -24,6 +24,7 @@ class PluginMobileHtml extends Html {
       //echo "<a href='central.php'><img src='../pics/logo.png' title='".__('Home')."' /></a>";"
 
       PluginMobileMenu::showPanel();
+      if (isset($option['right_panel'])) echo $option['right_panel'];
 
       echo "<div data-role='header'>";
             
@@ -31,7 +32,7 @@ class PluginMobileHtml extends Html {
 
             echo "<h1>$title</h1>";
 
-            //echo "<a data-icon='back' data-back='true' title='".__('Back')."'>".__('Back')."</a>";
+            if (isset($option['right_button'])) echo $option['right_button'];
 
          echo "</div>
          <div data-role='content' data-theme='a' class='$screen'>";
