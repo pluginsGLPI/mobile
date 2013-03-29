@@ -218,7 +218,7 @@ class PluginMobileSearch extends Search {
          echo " data-icon='forward'>".__("Last")."</a></li>";
 
       echo "</ul>";
-      echo "</div>";
-      echo "</div>";
+      echo "</div>"; // end navbar
+      echo "</div>"; // end footer
    }
 }
