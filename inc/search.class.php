@@ -26,7 +26,7 @@ class PluginMobileSearch extends Search {
       $qp->remove('script');
 
       //get pager content
-      $pager = $qp->find(".tab_cadre_pager td:last-child")->html();
+      $pager = trim(Html::clean($qp->find(".tab_cadre_pager td:last-child")->html()));
       $tmp = explode(" ", $pager);
       $numrows = array_pop($tmp);
 
@@ -167,7 +167,8 @@ class PluginMobileSearch extends Search {
       $prev = $start - $step;
       if ($prev < 0) $prev = 0;
       $next = $start + $step;
-      $last = floor($numrows / $step) * $step;
+      if ($next > $numrows) $next = $numrows;
+      $last = $numrows - $step;
 
       $disable_first = false;
       $disable_prev = false;
@@ -192,8 +193,8 @@ class PluginMobileSearch extends Search {
       echo "<div data-role='footer' data-position='fixed' data-theme='a'>";
       // display navigation position
       $position = sprintf(__('From %1$d to %2$d on %3$d'), 
-         $_GET['start']+1, 
-         $_GET['start']+$step, 
+         $start + 1, 
+         $next, 
          $numrows);
       echo "<span id='nav_position'>$position</span>";
       echo "<div data-role='navbar'>";
