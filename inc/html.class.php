@@ -86,6 +86,21 @@ class PluginMobileHtml extends Html {
                 GLPI_ROOT."/lib/extjs/ext-all.js'></script>\n";
       }
 
+      // EXTRA EXTJS
+      echo "<script type='text/javascript' src='".
+             GLPI_ROOT."/lib/extrajs/xdatefield.js'></script>\n";
+      echo "<script type='text/javascript' src='".
+             GLPI_ROOT."/lib/extrajs/TabScrollerMenu.js'></script>\n";
+      echo "<script type='text/javascript' src='".
+             GLPI_ROOT."/lib/extrajs/datetime.js'></script>\n";
+      echo "<script type='text/javascript' src='".
+             GLPI_ROOT."/lib/extrajs/spancombobox.js'></script>\n";
+      echo "<script type='text/javascript' src='".
+             GLPI_ROOT."/lib/extrajs/starslider/slider.js'></script>\n";
+
+      // Some Javascript-Functions which we may need later
+      echo "<script type='text/javascript' src='".GLPI_ROOT."/script.js'></script>\n";
+
       echo "</head><body>";
       echo "<div data-role='page' data-theme='a' class='$sector $item'>";
    }
