@@ -40,6 +40,8 @@ class PluginMobileHtml extends Html {
    }
 
    static function includeHeader($title = '', $url='', $sector="none", $item="none", $option="") {
+      $title = Html::clean($title);
+
       echo "<!DOCTYPE html><html><head>";
 
       echo "<title>$title</title>";
