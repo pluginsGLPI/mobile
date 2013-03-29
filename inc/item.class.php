@@ -1,6 +1,6 @@
 <?php
 
-class PluginMobilePage extends CommonDBTM {
+class PluginMobileItem extends CommonDBTM {
 
    static function getTitle($itemtype, $id) {
       $obj = new $itemtype;

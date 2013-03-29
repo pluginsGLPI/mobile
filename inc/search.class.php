@@ -71,7 +71,7 @@ class PluginMobileSearch extends Search {
       foreach ($qp->top($top)->find("td a") as $a) {
          $href = explode("=", $a->attr("href"));
          $id = array_pop($href);
-         $a->attr("href", "page.php?itemtype=$itemtype&id=$id");
+         $a->attr("href", "item.php?itemtype=$itemtype&id=$id");
       }
 
       //replace head links
