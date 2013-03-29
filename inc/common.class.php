@@ -85,16 +85,18 @@ class PluginMobileCommon {
    }
 
    static function redirectMobile() {
+      global $CFG_GLPI;
+
       if (strpos($_SERVER['SCRIPT_FILENAME'], 'plugins/mobile') === false
          && strpos($_SERVER['SCRIPT_FILENAME'], 'login.php') === false) {
          //check if alternate auth is available
          Auth::checkAlternateAuthSystems(true, "plugin_mobile_1");
 
          if(!isset($_SESSION['glpiactiveprofile'])) {
-            header("location: ".GLPI_ROOT."/plugins/mobile/login.php");
+            header("location: ".$CFG_GLPI['root_doc']."/plugins/mobile/login.php");
          } else {
             //else redirect login page
-            header("location: ".GLPI_ROOT."/plugins/mobile/front/central.php");
+            header("location: ".$CFG_GLPI['root_doc']."/plugins/mobile/front/central.php");
          }
       }
    }
