@@ -42,7 +42,7 @@ class PluginMobileSearch extends Search {
       $qp->top($top)->find("th:first-child:empty")->remove();
       $qp->top($top)->find("td:first-child:empty")->remove();
 
-      //add priority to th (from 1 to 6)
+      //add priority to th (from 1 to 6) for responive mode
       $i = 0;
       $nb_th = count($qp->top($top)->find("tr:first-child th"));
       foreach ($qp->top($top)->find("tr:first-child th") as $th) {
@@ -94,7 +94,7 @@ class PluginMobileSearch extends Search {
       $qp->top($top)->find("thead")->append($thead);
       $qp->top($top)->append($tbody);
 
-      //init table 
+      //init responsive table 
       $qp->top($top)
          ->Attr('id', "mobileTable")
          ->Attr("data-role", "table")
