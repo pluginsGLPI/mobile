@@ -3,7 +3,7 @@
 class PluginMobileMenu {
 
    static function showIcon() {
-      echo "<a href='#menuPanel' id='menuIcon' data-icon='arrow-d' data-rel='popup' 
+      echo "<a href='#menuPanel' id='menuIcon' data-icon='arrow-l' data-rel='popup' 
                data-role='button' data-theme='a' title='".__("Menu")."'><img src='../pics/logo2.png'
                title='".__('Home')."' /></a>";
 
@@ -90,8 +90,11 @@ class PluginMobileMenu {
          echo "<select name='newprofile' id='newprofile' onChange='submit()'>";
 
          foreach ($_SESSION["glpiprofiles"] as $key => $val) {
-            echo "<option value='".$key."' ".
-                   (($_SESSION["glpiactiveprofile"]["id"] == $key) ?"selected":"").">".$val['name'].
+            $selected = "";
+            if (($_SESSION["glpiactiveprofile"]["id"] == $key)) {
+               $selected = "selected";
+            }
+            echo "<option value='".$key."' $selected>".$val['name'].
                  "</option>";
          }
          echo "</select>";
@@ -100,15 +103,30 @@ class PluginMobileMenu {
       }
 
       if (Session::isMultiEntitiesMode()) {
-         /*ob_start();
-         include $CFG_GLPI['root_doc']."/ajax/entitytree.php";
-         $html = ob_get_contents();
-         ob_end_clean();
+         $entity_name = $_SESSION['glpiactive_entity_shortname'];
+         if (strpos($entity_name, "(".__("tree structure").")") !== "false") {
+            $entity_name = str_replace("(".__("tree structure").")", "", $entity_name);
+         }
+         if (strlen($entity_name) > 15) {
+            $entity_name = substr($entity_name, 0, 15)."...";
+         }
+         if (count($_SESSION['glpiactiveentities']) > 1) {
+            $entity_name .= "<img src='".GLPI_ROOT."/pics/entity_all.png' />";
+         }
 
-         echo $html;*/
-
-         echo "<a href='#' data-role='button' data-icon='check' data-iconpos='notext'>".
-            __("Entity")."</a>";
+         echo "<a href='#popupEntity' data-rel='popup' data-position-to='window' data-role='button'
+               data-inline='true' data-icon='check' data-theme='a' data-transition='pop'>".
+               $entity_name."</a>";
+         echo "<div data-role='popup' id='popupMenu' data-theme='a'>";
+         echo "<div data-role='popup' id='popupEntity' data-theme='a' class='ui-content'>";
+         Dropdown::show("Entity", array('value' => $_SESSION['glpiactive_entity'], 
+                                        'comments' => false, 
+                                        'entity' => 0, 
+                                        'entity_sons' => true, 
+                                        'on_change' => "location.href=\"../front/central.php?".
+                                                       "active_entity=\"+this.value", 
+                                        'rand' => "\" class=\"ui-button-corner-all")); 
+         echo "</div></div>";
       }
       echo "</fieldset>";
    }
