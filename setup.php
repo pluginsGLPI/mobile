@@ -1,14 +1,14 @@
 <?php
 
-//Load php libraries
+//Load php libraries (test)
 require_once GLPI_ROOT."/plugins/mobile/lib/QueryPath-2.1.2-minimal/QueryPath.php";
 
 // Init the hooks of the plugins -Needed
 function plugin_init_mobile() {
    global $PLUGIN_HOOKS, $LANG;
-   
+
    $PLUGIN_HOOKS['csrf_compliant']['mobile'] = true;
-   
+
    $menu_entry = 'front/central.php';
    $PLUGIN_HOOKS['menu_entry']['mobile']     = $menu_entry;
 
