@@ -9,8 +9,9 @@ function plugin_init_mobile() {
 
    $PLUGIN_HOOKS['csrf_compliant']['mobile'] = true;
 
-   $menu_entry = 'front/central.php';
-   $PLUGIN_HOOKS['menu_entry']['mobile']     = $menu_entry;
+   $mobile_index = 'front/central.php';
+   $PLUGIN_HOOKS['menu_entry']['mobile'] = $mobile_index;
+   $PLUGIN_HOOKS['config_page']['mobile'] = $mobile_index;
 
    //if mobile navigator detected, redirect to plugin mobile
    $plug = new Plugin;
