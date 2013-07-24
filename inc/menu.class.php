@@ -87,7 +87,7 @@ class PluginMobileMenu {
 
       if (count($_SESSION["glpiprofiles"])>1) {
          echo "<form method='post' action='".$target."' style='float:left'>";
-         echo "<select name='newprofile' id='newprofile' onChange='submit()'>";
+         echo "<select data-theme='a' name='newprofile' id='newprofile' onChange='submit()'>";
 
          foreach ($_SESSION["glpiprofiles"] as $key => $val) {
             $selected = "";
