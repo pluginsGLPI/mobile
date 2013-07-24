@@ -86,7 +86,7 @@ class PluginMobileMenu {
          data-mini='true' style='margin-left:5px'>";
 
       if (count($_SESSION["glpiprofiles"])>1) {
-         echo "<form name='form' method='post' action='".$target."' style='float:left'>";
+         echo "<form method='post' action='".$target."' style='float:left'>";
          echo "<select name='newprofile' id='newprofile' onChange='submit()'>";
 
          foreach ($_SESSION["glpiprofiles"] as $key => $val) {
@@ -119,13 +119,21 @@ class PluginMobileMenu {
                $entity_name."</a>";
          echo "<div data-role='popup' id='popupMenu' data-theme='a'>";
          echo "<div data-role='popup' id='popupEntity' data-theme='a' class='ui-content'>";
-         Dropdown::show("Entity", array('value' => $_SESSION['glpiactive_entity'], 
-                                        'comments' => false, 
-                                        'entity' => 0, 
+         echo "<span class='b'>".__('Select the desired entity')."<br></span>";
+         echo "<a data-ajax='false' data-role='button' href='".$target."?active_entity=all' ".
+            "title=\"".__s('Show all')."\">".str_replace(" ","&nbsp;",__('Show all'))."</a>";
+         echo "<hr /><br />";
+         echo "<form data-ajax='false' method='get' action='".$target."'>";
+         Dropdown::show("Entity", array('value'       => $_SESSION['glpiactive_entity'], 
+                                        'comments'    => false,
+                                        'name'        => 'active_entity',
+                                        'entity'      => 0, 
                                         'entity_sons' => true, 
-                                        'on_change' => "location.href=\"../front/central.php?".
-                                                       "active_entity=\"+this.value", 
-                                        'rand' => "\" class=\"ui-button-corner-all")); 
+                                        'rand'        => "\" class=\"ui-button-corner-all")); 
+         echo "<input type='checkbox' name='is_recursive' id='is_recursive' value='1' />";
+         echo "<label for='is_recursive'>".__("Child entities")."</label>";
+         echo "<input type='submit' value='"._sx('button','Post')."' data-theme='d'/>";
+         Html::closeForm();
          echo "</div></div>";
       }
       echo "</fieldset>";
