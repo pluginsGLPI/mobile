@@ -15,7 +15,7 @@ class PluginMobileCentral extends Central {
          <div data-role='collapsible' data-collapsed='true'>
          <h3>".__("Personal View")."</h3>
          <p>";
-      //self::showMyView();
+      self::showMyView();
       echo "</p>
          </div>
          
@@ -45,12 +45,89 @@ class PluginMobileCentral extends Central {
    }
 
    static function showMyView() {
+      $showticket = (Session::haveRight("show_all_ticket", "1")
+                     || Session::haveRight("show_assign_ticket", "1"));
+
+      $showproblem = (Session::haveRight("show_all_problem", "1")
+                      || Session::haveRight("show_my_problem", "1"));
+
+      if (Session::haveRight('validate_request',1)
+         || Session::haveRight('validate_incident',1)) {
+         ob_start();
+         Ticket::showCentralList(0,"tovalidate",false);
+         $html = utf8_decode(ob_get_contents());
+         ob_end_clean();
+         echo self::cleanHTML($html, "table.tab_cadrehov");
+         if (!empty($html)) echo "<br />";
+      }
+
       ob_start();
-      parent::showMyView();
+      Ticket::showCentralList(0, "toapprove", false);
       $html = utf8_decode(ob_get_contents());
       ob_end_clean();
+      echo self::cleanHTML($html, "table.tab_cadrehov");
+      if (!empty($html)) echo "<br />";
 
+      ob_start();
+      Ticket::showCentralList(0, "rejected", false);
+      $html = utf8_decode(ob_get_contents());
+      ob_end_clean();
+      echo self::cleanHTML($html, "table.tab_cadrehov");
+      if (!empty($html)) echo "<br />";
+
+      ob_start();
+      Ticket::showCentralList(0, "requestbyself", false);
+      $html = utf8_decode(ob_get_contents());
+      ob_end_clean();
+      echo self::cleanHTML($html, "table.tab_cadrehov");
+      if (!empty($html)) echo "<br />";
+
+      if ($showticket) {
+         ob_start();
+         Ticket::showCentralList(0, "process", false);
+         $html = utf8_decode(ob_get_contents());
+         ob_end_clean();
+         echo self::cleanHTML($html, "table.tab_cadrehov");
+         if (!empty($html)) echo "<br />";
+
+         ob_start();
+         Ticket::showCentralList(0, "waiting", false);
+         $html = utf8_decode(ob_get_contents());
+         ob_end_clean();
+         echo self::cleanHTML($html, "table.tab_cadrehov");
+         if (!empty($html)) echo "<br />";
+      }
+      if ($showproblem) {
+         ob_start();
+         Problem::showCentralList(0, "process", false);
+         $html = utf8_decode(ob_get_contents());
+         ob_end_clean();
+         echo self::cleanHTML($html, "table.tab_cadrehov");
+         if (!empty($html)) echo "<br />";
+      }
+
+      ob_start();
+      Planning::showCentral(Session::getLoginUserID());
+      $html = utf8_decode(ob_get_contents());
+      ob_end_clean();
       echo self::cleanHTML($html);
+      if (!empty($html)) echo "<br />";
+
+      ob_start();
+      Reminder::showListForCentral();
+      $html = utf8_decode(ob_get_contents());
+      ob_end_clean();
+      echo self::cleanHTML($html);
+      if (!empty($html)) echo "<br />";
+      
+      if (Session::haveRight("reminder_public","r")) {
+         ob_start();
+         Reminder::showListForCentral(false);
+         $html = utf8_decode(ob_get_contents());
+         ob_end_clean();
+         echo self::cleanHTML($html);
+      }
+
    }
 
    static function showGlobalView() {
@@ -96,7 +173,8 @@ class PluginMobileCentral extends Central {
       $qp->find("td")
          ->removeAttr("valign")
          ->removeAttr("width")
-         ->removeClass("tab_bg_2_2");
+         ->removeClass("tab_bg_2_2")
+         ->removeClass("center");
 
       //clean title
       if (!$show_title) {
@@ -120,7 +198,22 @@ class PluginMobileCentral extends Central {
       }
 
       //compute link
-      //$qp->top($top)->find("a").attr("href");
+      foreach ($qp->top($top)->find("a") as $a) {
+         //search shortcut
+         if (strpos($a->attr("href"), "ticket.php") !== false) {
+            $tmp = explode("?", $a->attr("href"));
+            $params = $tmp[1];
+            $a->attr("href", "search.php?itemtype=Ticket&$params");
+         }         
+
+         if (strpos($a->attr("href"), "ticket.form.php") !== false) {
+            foreach ($qp->top($top)->find("td a") as $a) {
+               $href = explode("=", $a->attr("href"));
+               $id = array_pop($href);
+               $a->attr("href", "item.php?itemtype=Ticket&id=$id");
+            }
+         }
+      }
 
       //init table 
       $qp->top($top)
