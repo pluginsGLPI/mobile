@@ -35,6 +35,5 @@ if (isset($_GET["redirect"])) {
 
 PluginMobileHtml::header(Central::getTypeName(1), $_SERVER['PHP_SELF']);
 PluginMobileCentral::showForMobile();
-//PluginMobileCentral::showMyView();
 PluginMobileHtml::footer();
 ?>
