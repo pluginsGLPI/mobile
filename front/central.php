@@ -4,9 +4,9 @@ define('GLPI_ROOT', '../../..');
 include (GLPI_ROOT."/inc/includes.php");
 
 // Change profile system
-if (isset($_POST['newprofile'])) {
-   if (isset($_SESSION["glpiprofiles"][$_POST['newprofile']])) {
-      Session::changeProfile($_POST['newprofile']);
+if (isset($_REQUEST['newprofile'])) {
+   if (isset($_SESSION["glpiprofiles"][$_REQUEST['newprofile']])) {
+      Session::changeProfile($_REQUEST['newprofile']);
       Html::redirect($_SERVER['PHP_SELF']);
    } else {
       Html::redirect(preg_replace("/entities_id=.*/","",$_SERVER['HTTP_REFERER']));
@@ -14,12 +14,12 @@ if (isset($_POST['newprofile'])) {
 }
 
 // Manage entity change
-if (isset($_GET["active_entity"])) {
-   if (!isset($_GET["is_recursive"])) {
-      $_GET["is_recursive"] = 0;
+if (isset($_REQUEST["active_entity"])) {
+   if (!isset($_REQUEST["is_recursive"])) {
+      $_REQUEST["is_recursive"] = 0;
    }
-   if (Session::changeActiveEntities($_GET["active_entity"],$_GET["is_recursive"])) {
-      if ($_GET["active_entity"] == $_SESSION["glpiactive_entity"]) {
+   if (Session::changeActiveEntities($_REQUEST["active_entity"],$_REQUEST["is_recursive"])) {
+      if ($_REQUEST["active_entity"] == $_SESSION["glpiactive_entity"]) {
          Html::redirect(preg_replace("/entities_id.*/","",$_SERVER['HTTP_REFERER']));
       }
    }

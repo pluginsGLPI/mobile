@@ -82,12 +82,11 @@ class PluginMobileMenu {
       global $CFG_GLPI;
 
       echo"<div data-role='header'><center>".__("Profile")."</center></div>";
-      echo "<fieldset data-role='controlgroup' data-type='horizontal' 
-         data-mini='true' style='margin-left:5px'>";
+      echo "<fieldset data-role='controlgroup' data-type='horizontal'  data-mini='true' ".
+           "data-exclude-invisible='true' style='margin-left:5px'>";
 
       if (count($_SESSION["glpiprofiles"])>1) {
-         echo "<form method='post' action='".$target."' style='float:left'>";
-         echo "<select data-theme='a' name='newprofile' id='newprofile' onChange='submit()'>";
+         echo "<select data-theme='a' name='newprofile' id='newprofile' onChange='location.href=\"$target?newprofile=\"+$(this).val()'>";
 
          foreach ($_SESSION["glpiprofiles"] as $key => $val) {
             $selected = "";
@@ -99,7 +98,6 @@ class PluginMobileMenu {
          }
          echo "</select>";
          echo "<label for='newprofile'>".__("Profile")."</label>";
-         Html::closeForm();
       }
 
       if (Session::isMultiEntitiesMode()) {
@@ -110,7 +108,7 @@ class PluginMobileMenu {
          if (strlen($entity_name) > 15) {
             $entity_name = substr($entity_name, 0, 15)."...";
          }
-         if (count($_SESSION['glpiactiveentities']) > 1) {
+         if ($_SESSION['glpiactive_entity_recursive'] == 1) {
             $entity_name .= "<img src='".GLPI_ROOT."/pics/entity_all.png' />";
          }
 
@@ -123,7 +121,7 @@ class PluginMobileMenu {
          echo "<a data-ajax='false' data-role='button' href='".$target."?active_entity=all' ".
             "title=\"".__s('Show all')."\">".str_replace(" ","&nbsp;",__('Show all'))."</a>";
          echo "<hr /><br />";
-         echo "<form data-ajax='false' method='get' action='".$target."'>";
+         echo "<form method='post' data-ajax='false' action='".$target."'>";
          Dropdown::show("Entity", array('value'       => $_SESSION['glpiactive_entity'], 
                                         'comments'    => false,
                                         'name'        => 'active_entity',
