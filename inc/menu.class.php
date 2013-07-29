@@ -81,6 +81,8 @@ class PluginMobileMenu {
    static function showProfileSelecter($target) {
       global $CFG_GLPI;
 
+      if (count($_SESSION["glpiprofiles"])== 1 && !Session::isMultiEntitiesMode()) return;
+
       echo"<div data-role='header'><center>".__("Profile")."</center></div>";
       echo "<fieldset data-role='controlgroup' data-type='horizontal'  data-mini='true' ".
            "data-exclude-invisible='true' style='margin-left:5px'>";
