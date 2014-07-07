@@ -23,6 +23,17 @@ class PluginMobileItem extends CommonDBTM {
          if (self::getOptionNumber($searchOptions, $table, $field) === false) {
             unset($obj->fields[$field]);
          }
+         
+         switch ($field) {
+            // Mask Author of last edit
+         	case 'date_mod' :
+               $msg = sprintf(__('By %s'), getUserName($obj->fields["users_id_lastupdater"]) );
+               $obj->fields[$field] .= " " . strtolower($msg);
+               break;
+            case 'users_id_lastupdater' :
+               unset($obj->fields[$field]);
+               break;
+         }
       }
 
       //show fields (if large screen, on two columns)
