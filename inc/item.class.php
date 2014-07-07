@@ -1,9 +1,8 @@
 <?php
-
 class PluginMobileItem extends CommonDBTM {
 
    static function getTitle($itemtype, $id) {
-      $obj = new $itemtype;
+      $obj = new $itemtype();
       $obj->getFromDB($id);
 
       $name = $obj->fields['name'];
@@ -11,7 +10,6 @@ class PluginMobileItem extends CommonDBTM {
 
       return "$name ($id)";
    }
-
 
 
    static function showItem($itemtype, $id) {
@@ -52,17 +50,16 @@ class PluginMobileItem extends CommonDBTM {
    }
 
 
-
    static function showItemFields($itemtype, $fields) {
       $readonlyFields = array('id', 'date_mod', 'uuid');
 
-      $obj = new $itemtype;
+      $obj = new $itemtype();
       $table = $obj->getTable();
       $searchOptions = Search::getOptions($itemtype);
 
       //init list view
       echo "<ul data-role='listview' data-theme='a'>";
-      foreach($fields as $field => $value) {
+      foreach ($fields as $field => $value) {
          //get current search option
          $itemSearchOptions = $searchOptions[self::getOptionNumber($searchOptions, $table, $field)];
 
@@ -100,7 +97,6 @@ class PluginMobileItem extends CommonDBTM {
    }
 
 
-
    static function getOptionNumber($opts, $table, $field) {
       foreach ($opts as $num => $opt) {
          if (
@@ -118,7 +114,6 @@ class PluginMobileItem extends CommonDBTM {
       return false;
    }
 
-   
 
    static function showEquals($searchopt, $value) {
       $inputname = $searchopt['linkfield'];
@@ -155,4 +150,3 @@ class PluginMobileItem extends CommonDBTM {
       }
    }
 }
-

@@ -1,9 +1,7 @@
 <?php
-
 define('GLPI_ROOT', '../..'); 
 include (GLPI_ROOT . "/inc/includes.php"); 
 PluginMobileHtml::includeHeader(__('Authentication'));
-   
 
 if (!isset($_SESSION["glpicookietest"]) || ($_SESSION["glpicookietest"] != 'testcookie')) {
    if (!is_writable(GLPI_SESSION_DIR)) {

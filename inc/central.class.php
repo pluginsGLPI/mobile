@@ -184,12 +184,12 @@ class PluginMobileCentral extends Central {
          $qp->top($top)->append("<thead class='ui-bar-b'></thead>");
          $thead = "";
          foreach ($qp->top($top)->find("th")->parent() as $trth) {
-            $thead.= $trth->html();
+            $thead .= $trth->html();
          }
          $qp->top($top)->find("th")->parent()->remove();
          $tbody = "";
          foreach ($qp->top($top)->find("tr") as $trtd) {
-            $tbody.= $trtd->html();
+            $tbody .= $trtd->html();
          }
          $qp->top($top)->find("tr")->remove();
          $qp->top($top)->find("th")->remove();

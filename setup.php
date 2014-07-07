@@ -14,7 +14,7 @@ function plugin_init_mobile() {
    $PLUGIN_HOOKS['config_page']['mobile'] = $mobile_index;
 
    //if mobile navigator detected, redirect to plugin mobile
-   $plug = new Plugin;
+   $plug = new Plugin();
    if ($plug->isInstalled('mobile') && $plug->isActivated('mobile')) {
       if (PluginMobileCommon::isNavigatorMobile()) {
          PluginMobileCommon::redirectMobile();
@@ -58,6 +58,3 @@ function plugin_mobile_check_config($verbose=false) {
    }
    return false;
 }
-
-
-?>

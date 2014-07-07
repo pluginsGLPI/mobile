@@ -11,5 +11,3 @@ function plugin_mobile_uninstall() {
    
    return true;
 }
-
-?>

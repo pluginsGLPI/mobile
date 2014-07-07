@@ -136,8 +136,6 @@ JAVASCRIPT;
       echo "<script type='text/javascript'>$JS</script>";
    }
 
-   
-
 
    static function showLoginBox($error = '', $REDIRECT = "") {
 
@@ -200,7 +198,5 @@ JAVASCRIPT;
       echo "document.getElementById('login_name').focus();";
       echo "</script>";
    }
-
-
    
 }

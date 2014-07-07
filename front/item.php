@@ -14,4 +14,3 @@ PluginMobileHtml::header($title, $_SERVER['PHP_SELF'], "none", "none", array(
                          ));
 PluginMobileItem::showItem($_REQUEST['itemtype'], $_REQUEST['id']);
 PluginMobileHtml::footer();
-?>

@@ -50,8 +50,6 @@ class PluginMobileMenu {
             echo "<h2>".$data['title']."</h2>";
             echo "<ul data-role='listview'>";
 
-
-
             // list menu item
             foreach ($data['content'] as $key => $val) {
                if (isset($val['page'])
@@ -64,7 +62,6 @@ class PluginMobileMenu {
          }
       }
 
-            
       echo "</div><!-- /collapsible -->
       </div><!-- /panel -->
       
@@ -276,7 +273,6 @@ class PluginMobileMenu {
                                                                            'Documents', 2);
          $m['financial']['content']['document']['page']            = 'search.php?itemtype=Document';
       }
-
 
 
       // UTILS
@@ -542,10 +538,6 @@ class PluginMobileMenu {
          $m['config']['content']['plugins']['title'] = __('Plugins');
          $m['config']['content']['plugins']['page']  = 'search.php?itemtype=Plugin';
       }
-
-
-
-
 
       return $m;
    }
