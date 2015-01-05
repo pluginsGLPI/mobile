@@ -1,8 +1,8 @@
 Plugin mobile for GLPI
 ======
 
-WARNING, This is an experimental plugin.
-Most of functions of glpi will not work with this.
+WARNING, This is an experimental plugin.   
+Most of glpi functions will not work with this.
 
 ![List of computer](/screenshots/0.84/computer_list.png "List of computer")
 
