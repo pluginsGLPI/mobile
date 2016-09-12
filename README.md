@@ -1,7 +1,7 @@
 Plugin mobile for GLPI
 ======
 
-SINCE version 0.90.3 of GLPI, the application is now responsive, so this plugin is not necessary anymore.
+**IMPORTANT: SINCE version 0.90.3 of GLPI, the application is now responsive, so this plugin is not necessary anymore !**
 
 WARNING, This is an experimental plugin.   
 Most of glpi functions will not work with this.
